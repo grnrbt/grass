@@ -1,0 +1,13 @@
+syntax: regexp
+^\.idea/
+^Thumbs\.db$
+^vendor/
+^runtime/
+^web/assets/
+^composer\.phar$
+^tests/codeception/_output/
+^tests/codeception/unit/UnitTester\.php$
+^tests/codeception/.*\.yml$
+^config/(dev|stage|test|prod)/
+^web/test.php$
+^nbproject
