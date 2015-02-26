@@ -1,20 +1,24 @@
 <?php
 namespace app\commands;
 
+use app\components\Migration;
+
 class MigrateController extends \yii\console\controllers\MigrateController
 {
     public $removeFromHistoryOnLostFile = true;
 
-    public $data = 'base';
+    public $data = Migration::TYPE_BASE;
 
     public $ignoreHistory = false;
+
+    public $templateFile = 'app/views/migration.php';
 
     public function init()
     {
         parent::init();
         // data=test by default in local, test and stage environment
         if(defined('YII_ENV') && in_array(YII_ENV, ['dev', 'test', 'stage'])){
-            $this->data = 'test';
+            $this->data = Migration::TYPE_TEST;
         }
     }
 
@@ -25,7 +29,7 @@ class MigrateController extends \yii\console\controllers\MigrateController
     {
         if (parent::beforeAction($action)) {
             if($this->data){
-                if($this->data == 'test'){
+                if($this->data == Migration::TYPE_TEST){
                     echo 'Working with test data (structure + base data + test data)';
                 } else {
                     echo 'Working with base data (structure + base data)';
@@ -71,17 +75,9 @@ class MigrateController extends \yii\console\controllers\MigrateController
             return true;
         }
 
-        // if migration has "data" property, apply migration only if parameter "data" not false (0)
-        if($migration->hasProperty('data')){
-            if (!$this->data) { // structure migrations only
-                $this->addMigrationHistory($class);
-                return true;
-            }
-
-            if($migration->data == 'test' && $this->data != 'test'){ // --data=base, default
-                $this->addMigrationHistory($class);
-                return true;
-            }
+        if(!$this->data || ($migration->getType() == Migration::TYPE_TEST && $this->data != Migration::TYPE_TEST)){
+            $this->addMigrationHistory($class);
+            return true;
         }
 
         parent::migrateUp($class);
@@ -104,17 +100,9 @@ class MigrateController extends \yii\console\controllers\MigrateController
             return true;
         }
 
-        // if migration has "data" property, apply migration only if parameter "data" not false (0)
-        if($migration->hasProperty('data')){
-            if (!$this->data) { // structure migrations only
-                $this->removeMigrationHistory($class);
-                return true;
-            }
-
-            if($migration->data == 'test' && $this->data != 'test'){ // --data=base, default
-                $this->removeMigrationHistory($class);
-                return true;
-            }
+        if(!$this->data || ($migration->getType() == Migration::TYPE_TEST && $this->data != Migration::TYPE_TEST)){
+            $this->removeMigrationHistory($class);
+            return true;
         }
 
         parent::migrateDown($class);
