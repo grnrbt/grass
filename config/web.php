@@ -1,14 +1,20 @@
 <?php
 
-$params = require(__DIR__ . '/params.php');
-
 $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'sourceLanguage' => 'en-US',
     'components' => [
+        'urlManager' => [
+            'class' => 'app\components\UrlManager',
+            'enablePrettyUrl' => true,
+            'enableStrictParsing' => false,
+            'showScriptName' => false,
+            'rules' => [],
+        ],
         'request' => [
-            // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
+            'class' => 'app\components\Request',
             'cookieValidationKey' => 'wJQI_OybKtCaij9nLRi2PS_wzAePM5j6',
         ],
         'cache' => [
@@ -21,11 +27,11 @@ $config = [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
+        'eventManager' => [
+            'class' => 'app\components\EventManager',
+        ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
-            // send all mails to a file by default. You have to set
-            // 'useFileTransport' to false and configure a transport
-            // for the mailer to send real emails.
             'useFileTransport' => true,
         ],
         'log' => [
@@ -37,9 +43,16 @@ $config = [
                 ],
             ],
         ],
+        'i18n' => [
+            'translations' => [
+                '*' => [
+                    'class' => 'app\components\PhpMessageSource',
+                ],
+            ],
+        ],
         'db' => require(__DIR__ . '/db.php'),
     ],
-    'params' => $params,
+    'params' => require(__DIR__ . '/params.php'),
 ];
 
 if (YII_ENV_DEV) {

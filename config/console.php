@@ -2,9 +2,6 @@
 
 Yii::setAlias('@tests', dirname(__DIR__) . '/tests');
 
-$params = require(__DIR__ . '/params.php');
-$db = require(__DIR__ . '/db.php');
-
 return [
     'id' => 'basic-console',
     'basePath' => dirname(__DIR__),
@@ -25,7 +22,7 @@ return [
                 ],
             ],
         ],
-        'db' => $db,
+        'db' => require(__DIR__ . '/db.php'),
     ],
-    'params' => $params,
+    'params' => require(__DIR__ . '/params.php'),
 ];
