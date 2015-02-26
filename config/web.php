@@ -6,9 +6,13 @@ $config = [
     'id' => 'grass',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'modules' => [
+        'test' => [
+            'class' => 'app\modules\test\Test',
+        ],
+    ],
     'components' => [
         'request' => [
-            // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'kNV5z05I6OJ6bE7RwGvXIehylrAhBGJS',
         ],
         'cache' => [
@@ -23,9 +27,6 @@ $config = [
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
-            // send all mails to a file by default. You have to set
-            // 'useFileTransport' to false and configure a transport
-            // for the mailer to send real emails.
             'useFileTransport' => true,
         ],
         'log' => [
