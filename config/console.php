@@ -27,5 +27,10 @@ return [
         ],
         'db' => $db,
     ],
+    'controllerMap' => [
+        'migrate' => [
+            'class' => 'app\commands\MigrateController',
+        ],
+    ],
     'params' => $params,
 ];
