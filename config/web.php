@@ -7,6 +7,7 @@ $config = [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'modules' => [
+        // todo merge it with console config
         'test' => [
             'class' => 'app\modules\test\Test',
         ],
