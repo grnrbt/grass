@@ -12,6 +12,9 @@ return [
     'controllerNamespace' => 'app\commands',
     'modules' => [
         'gii' => 'yii\gii\Module',
+        'test' => [
+            'class' => 'app\modules\test\Test',
+        ],
     ],
     'components' => [
         'cache' => [

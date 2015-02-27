@@ -2,7 +2,7 @@
 
 namespace app\components;
 
-use yii\base\ErrorException;
+use yii\console\Exception;
 
 class Migration extends \yii\db\Migration
 {
@@ -13,10 +13,11 @@ class Migration extends \yii\db\Migration
     /**
      * Return type of migration.
      * @return string One of self::TYPE_* constants.
+     * @throws Exception
      */
     public function getType()
     {
-        return new ErrorException('you should define type in getType method');
+        throw new Exception('you should define type in getType method');
     }
 
 }
