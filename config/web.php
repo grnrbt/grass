@@ -20,7 +20,6 @@ $config = [
             'rules' => [],
         ],
         'request' => [
-            'class' => 'app\components\Request',
             'cookieValidationKey' => 'kNV5z05I6OJ6bE7RwGvXIehylrAhBGJS',
         ],
         'cache' => [

@@ -12,7 +12,6 @@ class UrlManager extends \yii\web\UrlManager
 {
     /**
      * @inheritdoc
-     * @param Request $request
      */
     public function parseRequest($request)
     {
@@ -23,8 +22,10 @@ class UrlManager extends \yii\web\UrlManager
             throw new NotFoundHttpException;
         }
 
-        $request->setRequestedObjectId($route->getIdObject());
+        if ($route->getIdObject()) {
+            $_GET['idObject'] = $route->getIdObject();
+        }
 
-        return $route->getIdAction();
+        return [$route->getIdAction(), []];
     }
 }
