@@ -17,26 +17,15 @@ class <?= $className ?> extends Migration
         return self::TYPE_STRUCT;
     }
 
-    public function up()
+    public function safeUp()
     {
 
     }
 
-    public function down()
+    public function safeDown()
     {
         echo "<?= $className ?> cannot be reverted.\n";
 
         return false;
     }
-    
-    /*
-    // Use safeUp/safeDown to run migration code within a transaction
-    public function safeUp()
-    {
-    }
-    
-    public function safeDown()
-    {
-    }
-    */
 }
