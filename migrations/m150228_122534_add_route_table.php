@@ -13,7 +13,7 @@ class m150228_122534_add_route_table extends Migration
     public function safeUp()
     {
         $this->createTable(Route::tableName(), [
-            'uri' => 'varchar(255) not null unique',
+            'uri' => 'varchar(255) not null primary key',
             'id_action' => 'varchar(255) not null',
             'id_object' => 'varchar(255)',
         ]);
