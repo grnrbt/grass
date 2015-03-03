@@ -5,9 +5,7 @@
 return [
     'basePath' => dirname(__DIR__),
     'sourceLanguage' => 'en-US',
-    'modules' => [
-        'content' => 'app\modules\content\Content',
-    ],
+    'modules' => require(__DIR__ . '/modules.php'),
     'components' => [
         'db' => require(__DIR__ . '/db.php'),
         'cache' => 'yii\caching\FileCache',

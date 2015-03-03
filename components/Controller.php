@@ -5,9 +5,6 @@ namespace app\components;
 use app\models\BedRenderer;
 use yii\base\InvalidParamException;
 
-/**
- *
- */
 class Controller extends \yii\web\Controller
 {
     const BEDS_PARAMS_INDEX = 'beds';

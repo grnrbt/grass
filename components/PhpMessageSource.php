@@ -6,7 +6,7 @@ class PhpMessageSource extends \yii\i18n\PhpMessageSource
 {
     const MODULE_DELIMITER = '.';
 
-    public $basePath = 'i18n';
+    public $basePath = 'messages';
 
     /**
      * @inheritdoc

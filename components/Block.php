@@ -3,10 +3,7 @@
 namespace app\components;
 use yii\base\Widget;
 
-/**
- *
- */
-class BlockWidget extends Widget
+class Block extends Widget
 {
     protected $object;
     protected $params;

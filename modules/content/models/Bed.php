@@ -3,10 +3,7 @@
 namespace app\modules\content\models;
 use yii\db\ActiveQuery;
 
-/**
- *
- */
-class Bed extends BedBlock
+class Bed extends \app\models\Bed
 {
     public static function tableName()
     {

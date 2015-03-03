@@ -5,9 +5,6 @@ namespace app\components;
 use app\models\Route;
 use yii\web\NotFoundHttpException;
 
-/**
- *
- */
 class UrlManager extends \yii\web\UrlManager
 {
     /**

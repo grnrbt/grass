@@ -2,12 +2,9 @@
 
 namespace app\models;
 
-use app\components\BlockWidget;
+use app\components\Block;
 use app\components\IObject;
 
-/**
- *
- */
 class BedRenderer
 {
     protected $bed;
@@ -46,7 +43,7 @@ class BedRenderer
     }
 
     /**
-     * @return BlockWidget[]
+     * @return Block[]
      */
     protected function getWidgets()
     {

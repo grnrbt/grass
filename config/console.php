@@ -2,16 +2,20 @@
 
 use yii\helpers\ArrayHelper;
 
-return ArrayHelper::merge(require(__DIR__ . '/summary.php'), [
+$config = ArrayHelper::merge(require(__DIR__ . '/common.php'), [
     'id' => 'grass-console',
-    'bootstrap' => ['log', 'gii'],
+    'bootstrap' => ['log'],
     'controllerNamespace' => 'app\commands',
-    'modules' => [
-        'gii' => 'yii\gii\Module',
-    ],
     'controllerMap' => [
         'migrate' => [
             'class' => 'app\commands\MigrateController',
         ],
     ],
 ]);
+
+if (YII_ENV_DEV) {
+    $config['bootstrap'][] = 'gii';
+    $config['modules']['gii'] = 'yii\gii\Module';
+}
+
+return $config;
