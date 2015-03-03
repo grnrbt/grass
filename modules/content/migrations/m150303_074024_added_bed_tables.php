@@ -1,8 +1,8 @@
 <?php
 
 use app\components\Migration;
-use app\models\Bed;
-use app\models\BedBlock;
+use app\modules\content\models\Bed;
+use app\modules\content\models\BedBlock;
 
 class m150303_074024_added_bed_tables extends Migration
 {
@@ -38,8 +38,8 @@ class m150303_074024_added_bed_tables extends Migration
             'params' => 'jsonb',
         ]);
 
-        $this->createIndex('is_enabled', $this->blockTbl, 'is_enabled');
-        $this->createIndex('position', $this->blockTbl, 'position');
+        $this->createIndex($this->blockTbl . '_is_enabled', $this->blockTbl, 'is_enabled');
+        $this->createIndex($this->blockTbl . '_position', $this->blockTbl, 'position');
 
         $this->addForeignKeyWithAutoNamed($this->bedTbl, 'id_proto', $this->bedTbl, 'id');
         $this->addForeignKeyWithAutoNamed($this->blockTbl, 'id_bed', $this->bedTbl, 'id', 'cascade', 'cascade');
@@ -49,6 +49,9 @@ class m150303_074024_added_bed_tables extends Migration
     {
         $this->dropForeignKey($this->generateFkName($this->bedTbl, 'id_proto', $this->bedTbl, 'id'), $this->bedTbl);
         $this->dropForeignKey($this->generateFkName($this->blockTbl, 'id_bed', $this->bedTbl, 'id'), $this->blockTbl);
+
+        $this->dropIndex($this->blockTbl . '_is_enabled', $this->blockTbl);
+        $this->dropIndex($this->blockTbl . '_position', $this->blockTbl);
 
         $this->dropTable($this->blockTbl);
         $this->dropTable($this->bedTbl);
