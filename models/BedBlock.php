@@ -11,13 +11,8 @@ use yii\db\ActiveRecord;
  * @property string $widget_class
  * @property array $params
  */
-class BedBlock extends ActiveRecord
+abstract class BedBlock extends ActiveRecord
 {
-    public static function tableName()
-    {
-        return 'bed_block';
-    }
-
     /**
      * @return string
      */

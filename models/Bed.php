@@ -12,22 +12,12 @@ use yii\db\ActiveQuery;
  * @property BedBlock[] $blocks
  * @property BedBlock[] $enabledBlocks
  */
-class Bed extends ActiveRecord
+abstract class Bed extends ActiveRecord
 {
-    public static function tableName()
-    {
-        return 'bed';
-    }
-
     /**
      * @return ActiveQuery
      */
-    public function getBlocks()
-    {
-        return $this
-            ->hasMany(BedBlock::class, ['id_bed', 'id'])
-            ->orderBy('position');
-    }
+    abstract public function getBlocks();
 
     /**
      * @return ActiveQuery
