@@ -2,9 +2,9 @@
 
 namespace app\controllers;
 
+use app\components\Controller;
 use Yii;
 use yii\filters\AccessControl;
-use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
@@ -49,7 +49,8 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        return $this->render('index');
+        \Yii::$app->getCache();die();
+        return $this->renderBeds('index');
     }
 
     public function actionLogin()

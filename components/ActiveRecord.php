@@ -5,7 +5,7 @@ namespace app\components;
 /**
  *
  */
-abstract class ActiveRecord extends \yii\db\ActiveRecord
+class ActiveRecord extends \yii\db\ActiveRecord
 {
 
 }

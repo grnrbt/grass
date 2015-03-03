@@ -5,7 +5,7 @@ namespace app\components;
 /**
  *
  */
-abstract class Module extends \yii\base\Module
+class Module extends \yii\base\Module
 {
 
 }
