@@ -1,16 +1,10 @@
 <?php
 
-$config = [
+use yii\helpers\ArrayHelper;
+
+$config = ArrayHelper::merge(require(__DIR__ . '/summary.php'), [
     'id' => 'grass',
-    'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
-    'sourceLanguage' => 'en-US',
-    'modules' => [
-        // todo merge it with console config
-        'test' => [
-            'class' => 'app\modules\test\Test',
-        ],
-    ],
     'components' => [
         'urlManager' => [
             'class' => 'app\components\UrlManager',
@@ -22,9 +16,6 @@ $config = [
         'request' => [
             'cookieValidationKey' => 'kNV5z05I6OJ6bE7RwGvXIehylrAhBGJS',
         ],
-        'cache' => [
-            'class' => 'yii\caching\FileCache',
-        ],
         'user' => [
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,
@@ -32,33 +23,8 @@ $config = [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        'eventManager' => [
-            'class' => 'app\components\EventManager',
-        ],
-        'mailer' => [
-            'class' => 'yii\swiftmailer\Mailer',
-            'useFileTransport' => true,
-        ],
-        'log' => [
-            'traceLevel' => YII_DEBUG ? 3 : 0,
-            'targets' => [
-                [
-                    'class' => 'yii\log\FileTarget',
-                    'levels' => ['error', 'warning'],
-                ],
-            ],
-        ],
-        'i18n' => [
-            'translations' => [
-                '*' => [
-                    'class' => 'app\components\PhpMessageSource',
-                ],
-            ],
-        ],
-        'db' => require(__DIR__ . '/db.php'),
     ],
-    'params' => require(__DIR__ . '/params.php'),
-];
+]);
 
 if (YII_ENV_DEV) {
     // configuration adjustments for 'dev' environment
