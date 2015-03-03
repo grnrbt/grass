@@ -2,6 +2,7 @@
 
 namespace app\components;
 
+use yii\base\Exception;
 
 abstract class Migration extends \yii\db\Migration
 {
