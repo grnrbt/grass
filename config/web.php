@@ -2,7 +2,7 @@
 
 use yii\helpers\ArrayHelper;
 
-$config = ArrayHelper::merge(require(__DIR__ . '/summary.php'), [
+$config = ArrayHelper::merge(require(__DIR__ . '/common.php'), [
     'id' => 'grass',
     'bootstrap' => ['log'],
     'components' => [

@@ -3,9 +3,6 @@
 namespace app\components;
 use app\models\Bed;
 
-/**
- *
- */
 interface IObject
 {
     /**
