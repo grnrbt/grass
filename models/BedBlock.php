@@ -7,8 +7,8 @@ use yii\db\ActiveRecord;
  * @property int $id
  * @property int $id_bed
  * @property int $position
- * @property bool $is_enabled
- * @property string $widget_class
+ * @property bool $is_active
+ * @property string $source
  * @property array $params
  */
 abstract class BedBlock extends ActiveRecord
@@ -16,36 +16,36 @@ abstract class BedBlock extends ActiveRecord
     /**
      * @return string
      */
-    public function getWidgetClass()
+    public function getSource()
     {
-        return $this->widget_class;
+        return $this->source;
     }
 
     /**
-     * @param string $widget_class
+     * @param string $source
      * @return BedBlock
      */
-    public function setWidgetClass($widget_class)
+    public function setSource($source)
     {
-        $this->widget_class = $widget_class;
+        $this->source = $source;
         return $this;
     }
 
     /**
      * @return boolean
      */
-    public function isEnabled()
+    public function isActive()
     {
-        return $this->is_enabled;
+        return $this->is_active;
     }
 
     /**
-     * @param boolean $is_enabled
+     * @param boolean $is_active
      * @return BedBlock
      */
-    public function setIsEnabled($is_enabled)
+    public function setIsActive($is_active)
     {
-        $this->is_enabled = $is_enabled;
+        $this->is_active = $is_active;
         return $this;
     }
 
@@ -120,6 +120,4 @@ abstract class BedBlock extends ActiveRecord
         $this->params = $params;
         return $this;
     }
-
-
 }
