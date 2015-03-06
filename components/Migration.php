@@ -3,6 +3,7 @@
 namespace app\components;
 
 use yii\base\Exception;
+use yii\db\Schema;
 
 abstract class Migration extends \yii\db\Migration
 {
@@ -70,7 +71,8 @@ abstract class Migration extends \yii\db\Migration
             ));
         }
 
-        $name = $table . '_' . $columns . '_' . $refTable . '_' . $refColumns;
+        $name = $this->db->schema->getRawTableName($table) . '_' . $columns . '_' .
+            $this->db->schema->getRawTableName($refTable) . '_' . $refColumns;
         $length = strlen($name);
         if ($cutName && ($length > self::MAX_FK_NAME_LENGTH)) {
             $name = substr($name, $length - self::MAX_FK_NAME_LENGTH);
