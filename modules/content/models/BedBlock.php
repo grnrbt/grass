@@ -6,6 +6,6 @@ class BedBlock extends \app\models\BedBlock
 {
     public static function tableName()
     {
-        return 'content_bed_block';
+        return '{{%content_bed_block}}';
     }
 }

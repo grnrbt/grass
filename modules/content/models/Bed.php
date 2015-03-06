@@ -7,7 +7,7 @@ class Bed extends \app\models\Bed
 {
     public static function tableName()
     {
-        return 'content_bed';
+        return '{{%content_bed}}';
     }
 
     /**
