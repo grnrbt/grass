@@ -15,7 +15,7 @@ use yii\helpers\ArrayHelper;
  * @property string $ts_updated
  * @property string $value
  * @property string $code
- * @property string $name
+ * @property string $title
  * @property string $type
  */
 class Config extends ActiveRecord
@@ -78,12 +78,12 @@ class Config extends ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'code', 'category', 'name', 'type',], 'required'],
+            [['id', 'code', 'category', 'title', 'type',], 'required'],
             ['code', 'unique'],
             ['type', 'in', 'range' => $this->types],
             ['value', 'required', 'when' => function ($model) { return !$model->isNewRecord; }],
             ['value', 'default', 'value' => ''],
-            [['code', 'name',], 'string', 'max' => 63],
+            [['code', 'title',], 'string', 'max' => 63],
             [['category', 'description',], 'string', 'max' => 255],
         ];
     }

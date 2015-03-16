@@ -13,7 +13,7 @@ class m150305_231702_add_settings_values extends Migration
     {
         // todo localization
         $this->batchInsert(\app\models\Config::tableName(),
-            ["code", "type", "category", "name", "description", "value"],
+            ["code", "type", "category", "title", "description", "value"],
             [
                 ['siteName', 'string', 'Основные', 'Название сайта', 'Название сайта, используемое в тайтле, футере', 'GRASS'],
                 ['siteKeywords', 'string', 'Основные', 'Ключевые слова', 'Используемые по умолчанию ключевые слова, через запятую', 'CMS GRASS, сайт'],
