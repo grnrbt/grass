@@ -25,7 +25,7 @@ class m150304_144746_add_settings extends Migration
             'ts_updated' => 'timestamp DEFAULT CURRENT_TIMESTAMP',
         ]);
 
-        $this->createIndex(Config::tableNameUnprefixed() . '_code', Config::tableName(), 'code');
+        $this->createIndex(Config::tableNameUnprefixed() . '_code', Config::tableName(), 'code', true);
     }
 
     public function safeDown()
