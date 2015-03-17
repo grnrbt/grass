@@ -31,7 +31,7 @@ class m150313_234943_add_param_catalogue extends Migration
             'ts_updated' => 'timestamp DEFAULT CURRENT_TIMESTAMP',
         ]);
 
-        $this->createIndex(Param::tableNameUnprefixed() . '_code', Param::tableName(), 'code');
+        $this->createIndex(Param::tableNameUnprefixed() . '_code', Param::tableName(), 'code', true);
         $this->createIndex(Param::tableNameUnprefixed() . '_active', Param::tableName(), 'is_active');
 
         $this->createTable(ParamValue::tableName(), [
