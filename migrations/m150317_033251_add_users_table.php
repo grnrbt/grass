@@ -24,7 +24,7 @@ class m150317_033251_add_users_table extends Migration
 
     public function safeUp()
     {
-        $this->createTable(User::tableName(), [
+        $this->createTable($this->table, [
             'id' => 'serial primary key',
             'email' => 'varchar(255) NOT NULL',
             'password' => 'varchar(255) NOT NULL',
