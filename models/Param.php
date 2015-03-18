@@ -3,6 +3,7 @@
 namespace app\models;
 
 use app\components\ActiveRecord;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * Class Param
@@ -31,5 +32,17 @@ class Param extends ActiveRecord
         'select',
         'multiselect',
     ];
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::className(),
+                'createdAtAttribute' => 'ts_created',
+                'updatedAtAttribute' => 'ts_updated',
+            ],
+
+        ];
+    }
 
 }

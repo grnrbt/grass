@@ -61,6 +61,9 @@ class ParamValidator extends Validator
         return;
     }
 
+    /**
+     * @param $param
+     */
     private function validateString($param)
     {
         if (!is_string($param['value'])) {
@@ -77,6 +80,9 @@ class ParamValidator extends Validator
         return;
     }
 
+    /**
+     * @param $param
+     */
     private function validateBoolean($param)
     {
         if(!($param['value'] == 1 || $param['value'] == 0)){
@@ -84,6 +90,9 @@ class ParamValidator extends Validator
         }
     }
 
+    /**
+     * @param $param
+     */
     private function validateInteger($param)
     {
         if(!$this->checkArray($param)){
@@ -94,6 +103,9 @@ class ParamValidator extends Validator
         }
     }
 
+    /**
+     * @param $param
+     */
     private function validateDecimal($param)
     {
         if(!$this->checkArray($param)){
@@ -104,6 +116,9 @@ class ParamValidator extends Validator
         }
     }
 
+    /**
+     * @param $param
+     */
     private function validateText($param)
     {
         if(!$this->checkArray($param)){
@@ -111,6 +126,9 @@ class ParamValidator extends Validator
         }
     }
 
+    /**
+     * @param $param
+     */
     private function validateSelect($param)
     {
         if(!$this->checkArray($param)){
@@ -129,6 +147,9 @@ class ParamValidator extends Validator
         }
     }
 
+    /**
+     * @param $param
+     */
     private function validateMultiselect($param)
     {
         if(!$this->checkArray($param, true)){
@@ -147,6 +168,11 @@ class ParamValidator extends Validator
         }
     }
 
+    /**
+     * @param $param
+     * @param bool $shouldBeArray
+     * @return bool
+     */
     private function checkArray($param, $shouldBeArray = false)
     {
         if (!$shouldBeArray && is_array($param['value'])) {
