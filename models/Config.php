@@ -3,6 +3,7 @@
 namespace app\models;
 
 use app\components\ActiveRecord;
+use yii\behaviors\TimestampBehavior;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -29,6 +30,18 @@ class Config extends ActiveRecord
         'boolean',
         'integer',
     ];
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::className(),
+                'createdAtAttribute' => false, // config params are not created in run-time
+                'updatedAtAttribute' => 'ts_updated',
+            ],
+
+        ];
+    }
 
     public function init(){
         static::$cache = \Yii::$app->cache->get(static::CACHE_KEY);

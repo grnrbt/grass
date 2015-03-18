@@ -18,6 +18,9 @@ class ParamBehavior  extends Behavior
 {
     private $paramsCache;
 
+    /**
+     * @throws Exception
+     */
     private function fillCache()
     {
         if(!$this->owner->hasAttribute('param')){
@@ -27,6 +30,11 @@ class ParamBehavior  extends Behavior
         $this->paramsCache = $params ? json_decode($params) : [];
     }
 
+    /**
+     * @param $name
+     * @return mixed
+     * @throws Exception
+     */
     public function getParam($name)
     {
         if(is_null($this->paramsCache)){
@@ -36,6 +44,12 @@ class ParamBehavior  extends Behavior
         return $this->paramsCache[$name];
     }
 
+    /**
+     * @param $name
+     * @param $value
+     * @param bool $saveObject
+     * @throws Exception
+     */
     public function setParam($name, $value, $saveObject = true)
     {
         if(is_null($this->paramsCache)){
