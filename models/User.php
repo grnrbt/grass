@@ -27,6 +27,9 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
 {
     public $passwordRaw;
 
+    /**
+     * @inheritdoc
+     */
     public function behaviors()
     {
         return [
@@ -38,6 +41,30 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
             [
                 'class' => ParamBehavior::className(),
             ]
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['email', 'passwordRaw', 'id_group'], 'required'],
+
+            [['email', 'passwordRaw', 'name_first', 'name_last', 'name_middle',], 'filter', 'filter' => 'trim'],
+            ['email', 'email'],
+            ['email', 'unique', 'targetClass' => '\common\models\User'],
+
+            ['password', 'unsafe'], // set password only directly
+
+            ['passwordRaw', 'string', 'min' => 6],
+
+            [['id', 'id_group'], 'number'],
+
+            ['is_active', 'boolean'],
+
+            [['name_first', 'name_last', 'name_middle',], 'string'],
         ];
     }
 
@@ -321,6 +348,18 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     public static function find()
     {
         return parent::find()->where(['is_active' => true]);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function beforeDelete()
+    {
+        if (parent::beforeDelete() && $this->getId() != 1) { // do not delete system admin
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }
