@@ -3,6 +3,7 @@
 namespace app\models;
 
 use app\components\ActiveRecord;
+use yii\helpers\ArrayHelper;
 
 /**
  * @property string $uri
@@ -11,6 +12,23 @@ use app\components\ActiveRecord;
  */
 class Route extends ActiveRecord
 {
+    /**
+     * get list of all rules for createUrl function
+     * @return array|mixed
+     */
+    public static function getRules()
+    {
+        $rules = \Yii::$app->cache->get('rules');
+
+        if(!$rules){
+            $rules = ArrayHelper::map(Route::find()->select(['uri', 'id_action'])->asArray()->all(), 'uri', 'id_action');
+            \Yii::$app->cache->set('rules', $rules, 60 * 60);
+            // todo maybe set dependency on max ts_updated field in DB (need to add that field)
+        }
+
+        return $rules;
+    }
+
     /**
      * @return int
      */

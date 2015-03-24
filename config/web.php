@@ -4,7 +4,7 @@ use yii\helpers\ArrayHelper;
 
 $config = ArrayHelper::merge(require(__DIR__ . '/common.php'), [
     'id' => 'grass',
-    'bootstrap' => ['log'],
+    'bootstrap' => ['log', 'init'],
     'components' => [
         'urlManager' => [
             'class' => 'app\components\UrlManager',

@@ -362,4 +362,13 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
         }
     }
 
+    /**
+     * todo remove hardcode
+     * @return bool
+     */
+    public function isAdmin()
+    {
+        return $this->getIdGroup() == 1;
+    }
+
 }

@@ -3,6 +3,7 @@
 namespace app\components;
 
 use app\models\BedRenderer;
+use app\models\Config;
 use yii\base\InvalidParamException;
 
 class Controller extends \yii\web\Controller
@@ -17,7 +18,7 @@ class Controller extends \yii\web\Controller
      * ]
      *
      * @param string $view {@see self::render()}.
-     * @param IObject $object = null Object for rendering.
+     * @param IObject|null $object = null Object for rendering.
      * @param array $params
      * @return string
      */
@@ -38,6 +39,27 @@ class Controller extends \yii\web\Controller
             }
         }
 
+        $this->setHeaders();
         return $this->render($view, $params);
+    }
+
+    public function setHeaders()
+    {
+        $view = $this->view;
+        // default
+        $view->title = Config::get('siteName');
+        $view->registerMetaTag(['name' => 'keywords', 'content' => Config::get('siteKeywords')], 'keywords');
+        $view->registerMetaTag(['name' => 'description', 'content' => Config::get('siteDescription')], 'description');
+
+        // override
+
+        // OpenGraph tags
+        $view->registerMetaTag(['property' => 'og:type', 'content' => 'website'], 'og:type');
+        $view->registerMetaTag(['property' => 'og:locale', 'content' => \Yii::$app->language], 'og:locale');
+        $view->registerMetaTag(['property' => 'og:url', 'content' => \Yii::$app->request->absoluteUrl], 'og:url');
+        $view->registerMetaTag(['property' => 'og:title', 'content' => $view->title], 'og:title');
+        $view->registerMetaTag(['property' => 'og:site_name', 'content' => Config::get('siteName')], 'og:site_name');
+        // todo add image
+        // $view->registerMetaTag(['property' => 'og:image', 'content' => \Yii::$app->request->hostInfo . $this->image], 'og:image');
     }
 }
