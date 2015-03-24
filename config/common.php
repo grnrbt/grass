@@ -30,6 +30,9 @@ return [
             'class' => 'yii\swiftmailer\Mailer',
             'useFileTransport' => true,
         ],
+        'init' => [
+            'class' => 'app\components\Init',
+        ],
     ],
     'params' => require(__DIR__ . '/params.php'),
 ];

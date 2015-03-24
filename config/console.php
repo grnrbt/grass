@@ -4,7 +4,7 @@ use yii\helpers\ArrayHelper;
 
 $config = ArrayHelper::merge(require(__DIR__ . '/common.php'), [
     'id' => 'grass-console',
-    'bootstrap' => ['log'],
+    'bootstrap' => ['log', 'init'],
     'controllerNamespace' => 'app\commands',
     'controllerMap' => [
         'migrate' => [

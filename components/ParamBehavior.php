@@ -4,7 +4,7 @@ namespace app\components;
 
 use yii\base\Behavior;
 use yii\base\Model;
-use yii\db\ActiveRecord;
+use app\components\ActiveRecord;
 use yii\db\Exception;
 use yii\validators\Validator;
 

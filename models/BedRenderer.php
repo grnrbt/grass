@@ -10,7 +10,7 @@ class BedRenderer
     protected $bed;
     protected $object;
     protected $widgets = [];
-    protected $renderStr;
+    protected $renderBuffer;
 
     public function __construct(Bed $bed, IObject $object)
     {
@@ -20,26 +20,27 @@ class BedRenderer
 
     public function __toString()
     {
-        return $this->getRenderStr();
+        return $this->getRenderBuffer();
     }
 
     public function render()
     {
-        echo $this->getRenderStr();
+        echo $this->getRenderBuffer();
     }
 
     /**
      * @return string
      */
-    protected function getRenderStr()
+    protected function getRenderBuffer()
     {
-        if ($this->renderStr === null) {
-            $this->renderStr = '';
+        if ($this->renderBuffer === null) {
+            $renderBuffer = [];
             foreach ($this->getWidgets() as $widget) {
-                $this->renderStr .= $widget->run();
+                $renderBuffer[] = $widget->run();
             }
+            $this->renderBuffer = implode('', $renderBuffer);
         }
-        return $this->renderStr;
+        return $this->renderBuffer;
     }
 
     /**

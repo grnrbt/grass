@@ -44,13 +44,21 @@ class Config extends ActiveRecord
     }
 
     public function init(){
+        static::loadCache();
+
+        parent::init();
+    }
+
+    /**
+     * loads model cache
+     */
+    public static function loadCache()
+    {
         static::$cache = \Yii::$app->cache->get(static::CACHE_KEY);
         if(static::$cache === false){
             static::$cache = ArrayHelper::map(Config::find()->asArray()->select(['code', 'value'])->all(), 'code', 'value');
             \Yii::$app->cache->set(static::CACHE_KEY, static::$cache, \Yii::$app->params['configCache']);
         }
-
-        parent::init();
     }
 
     /**

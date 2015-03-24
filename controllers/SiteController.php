@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\components\Controller;
+use app\modules\content\models\Content;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -49,8 +50,9 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        \Yii::$app->getCache();die();
-        return $this->renderBeds('index');
+//        $model = Content::findOne(0);
+        $model = null;
+        return $this->renderBeds('index', $model);
     }
 
     public function actionLogin()
