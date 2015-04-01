@@ -33,7 +33,7 @@ class m150317_033251_add_users_table extends Migration
             'name_last' => 'varchar(255) NULL',
             'name_middle' => 'varchar(255) NULL',
             'id_group' => 'smallint  NOT NULL',
-            'params' => 'json NULL',
+            'params' => 'jsonb NULL',
             'auth_key' => 'varchar(255) NULL',
             'reset_key' => 'varchar(255) NULL',
             'ts_created' => 'timestamp DEFAULT CURRENT_TIMESTAMP',
