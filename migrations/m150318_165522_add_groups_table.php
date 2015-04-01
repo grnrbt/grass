@@ -30,7 +30,7 @@ class m150318_165522_add_groups_table extends Migration
         $this->createTable($this->groupTable, [
                 'id' => 'serial primary key',
                 'title' => 'varchar(255) NOT NULL',
-                'params' => 'json NULL',
+                'params' => 'jsonb NULL',
                 'ts_created' => 'timestamp DEFAULT CURRENT_TIMESTAMP',
                 'ts_updated' => 'timestamp DEFAULT CURRENT_TIMESTAMP',
             ]
