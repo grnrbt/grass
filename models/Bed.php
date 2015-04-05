@@ -68,7 +68,7 @@ abstract class Bed extends ActiveRecord
     /**
      * @return boolean
      */
-    public function isIsDefault()
+    public function isDefault()
     {
         return $this->is_default;
     }
