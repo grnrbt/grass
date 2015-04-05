@@ -2,6 +2,7 @@
 
 namespace app\models;
 use app\components\ActiveRecord;
+use app\components\ParamBehavior;
 
 /**
  * @property int $id
@@ -13,6 +14,18 @@ use app\components\ActiveRecord;
  */
 abstract class BedBlock extends ActiveRecord
 {
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => ParamBehavior::className(),
+            ]
+        ];
+    }
+
     /**
      * @return string
      */

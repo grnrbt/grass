@@ -50,7 +50,7 @@ class BedRenderer
     {
         if ($this->widgets === null) {
             foreach ($this->bed->enabledBlocks as $block) {
-                $class = $block->getWidgetClass();
+                $class = $block->getSource();
                 $this->widgets[] = new $class($this->object, $block->getParams());
             }
         }
