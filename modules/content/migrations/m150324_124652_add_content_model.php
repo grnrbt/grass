@@ -36,7 +36,7 @@ class m150324_124652_add_content_model extends Migration
             'is_active' => 'boolean DEFAULT true',
             'is_hidden' => 'boolean DEFAULT false',
             'id_parent' => 'int NULL',
-            'ids_bed' => 'int[] NOT NULL',
+            'ids_bed' => 'jsonb NOT NULL',
             'path' => 'int[]',
             'menu_title' => 'varchar(255) NOT NULL',
             'position' => 'int DEFAULT 0',

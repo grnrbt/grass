@@ -6,12 +6,14 @@ class m150405_170058_add_test_content extends Migration
 {
     private $bed;
     private $block;
+    private $content;
 
     public function init()
     {
         parent::init();
         $this->bed = \app\modules\content\models\Bed::tableName();
         $this->block = \app\modules\content\models\BedBlock::tableName();
+        $this->content = \app\modules\content\models\Content::tableName();
     }
 
     public function getType()
@@ -60,11 +62,19 @@ class m150405_170058_add_test_content extends Migration
             'source' => \app\components\blocks\HtmlParamBlock::class,
             'params' => \yii\helpers\Json::encode(['content' => 'Главная страница, контент']),
         ]);
+
+        $this->insert($this->content, [
+            'id' => 1,
+            'slug' => '',
+            'ids_bed' => \yii\helpers\Json::encode(['main' => 2]),
+            'menu_title' => '',
+        ]);
     }
 
     public function safeDown()
     {
         $this->delete($this->bed, ['id' => [1, 2]]);
         $this->delete($this->block, ['id' => [1, 2, 3]]);
+        $this->delete($this->content, ['id' => 1]);
     }
 }
