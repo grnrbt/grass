@@ -1,8 +1,8 @@
 <?php
 
-namespace app\modules\content\models;
+namespace app\modules\content\models\beds;
 
-class BedBlock extends \app\models\BedBlock
+class BedBlock extends \app\models\beds\BedBlock
 {
     public static function tableName()
     {

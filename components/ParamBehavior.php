@@ -14,7 +14,7 @@ use yii\validators\Validator;
  *
  * @property Model $owner
  */
-class ParamBehavior  extends Behavior
+class ParamBehavior extends Behavior
 {
     private $paramsCache;
 

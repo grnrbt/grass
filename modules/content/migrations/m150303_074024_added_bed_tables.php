@@ -1,8 +1,8 @@
 <?php
 
 use app\components\Migration;
-use app\modules\content\models\Bed;
-use app\modules\content\models\BedBlock;
+use app\modules\content\models\beds\Bed;
+use app\modules\content\models\beds\BedBlock;
 
 class m150303_074024_added_bed_tables extends Migration
 {

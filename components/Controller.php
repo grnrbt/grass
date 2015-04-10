@@ -2,7 +2,7 @@
 
 namespace app\components;
 
-use app\models\BedRenderer;
+use app\models\beds\BedRenderer;
 use app\models\Config;
 use yii\base\InvalidParamException;
 
