@@ -1,6 +1,11 @@
 <?php
 
+use app\components\blocks\HtmlParamBlock;
 use app\components\Migration;
+use app\modules\content\models\beds\BedBlock;
+use app\modules\content\models\beds\Bed;
+use app\modules\content\models\Content;
+use yii\helpers\Json;
 
 class m150405_170058_add_test_content extends Migration
 {
@@ -11,9 +16,9 @@ class m150405_170058_add_test_content extends Migration
     public function init()
     {
         parent::init();
-        $this->bed = \app\modules\content\models\Bed::tableName();
-        $this->block = \app\modules\content\models\BedBlock::tableName();
-        $this->content = \app\modules\content\models\Content::tableName();
+        $this->bed = Bed::tableName();
+        $this->block = BedBlock::tableName();
+        $this->content = Content::tableName();
     }
 
     public function getType()
@@ -24,49 +29,45 @@ class m150405_170058_add_test_content extends Migration
     public function safeUp()
     {
         // default main bed
-        $this->insert($this->bed,
-            [
+        $this->insert($this->bed,            [
                 'id' => 1,
                 'is_default' => true,
-            ]
-            );
+            ]            );
 
         $this->insert($this->block, [
             'id' => 1,
             'id_bed' => 1,
             'position' => 0,
-            'source' => \app\components\blocks\HtmlParamBlock::class,
-            'params' => \yii\helpers\Json::encode(['content' => 'Первый дефолтный блок']),
+            'source' => HtmlParamBlock::class,
+            'params' => Json::encode(['content' => 'Первый дефолтный блок']),
         ]);
 
         $this->insert($this->block, [
             'id' => 2,
             'id_bed' => 1,
             'position' => 10,
-            'source' => \app\components\blocks\HtmlParamBlock::class,
-            'params' => \yii\helpers\Json::encode(['content' => 'Второй дефолтный блок']),
+            'source' => HtmlParamBlock::class,
+            'params' => Json::encode(['content' => 'Второй дефолтный блок']),
         ]);
 
         // index main bed
-        $this->insert($this->bed,
-            [
+        $this->insert($this->bed,            [
                 'id' => 2,
                 'id_proto' => 1,
-            ]
-        );
+            ]        );
 
         $this->insert($this->block, [
             'id' => 3,
             'id_bed' => 2,
             'position' => 0,
-            'source' => \app\components\blocks\HtmlParamBlock::class,
-            'params' => \yii\helpers\Json::encode(['content' => 'Главная страница, контент']),
+            'source' => HtmlParamBlock::class,
+            'params' => Json::encode(['content' => 'Главная страница, контент']),
         ]);
 
         $this->insert($this->content, [
             'id' => 1,
             'slug' => '',
-            'ids_bed' => \yii\helpers\Json::encode(['main' => 2]),
+            'ids_bed' => Json::encode(['main' => 2]),
             'menu_title' => '',
         ]);
     }

@@ -2,7 +2,6 @@
 
 namespace app\modules\content\models;
 
-
 use app\components\ActiveRecord;
 use app\components\IObject;
 use app\components\ParamBehavior;

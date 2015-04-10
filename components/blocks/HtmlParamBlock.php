@@ -2,7 +2,6 @@
 
 namespace app\components\blocks;
 
-
 use app\components\Block;
 
 class HtmlParamBlock extends Block
@@ -11,5 +10,4 @@ class HtmlParamBlock extends Block
     {
         echo $this->params['content'];
     }
-
 }

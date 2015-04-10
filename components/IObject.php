@@ -1,7 +1,7 @@
 <?php
 
 namespace app\components;
-use app\models\Bed;
+use app\models\beds\Bed;
 
 interface IObject
 {

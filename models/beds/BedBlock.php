@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace app\models\beds;
 use app\components\ActiveRecord;
 use app\components\ParamBehavior;
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace app\modules\content\models;
+namespace app\modules\content\models\beds;
 use yii\db\ActiveQuery;
 
-class Bed extends \app\models\Bed
+class Bed extends \app\models\beds\Bed
 {
     public static function tableName()
     {

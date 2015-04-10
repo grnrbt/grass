@@ -41,8 +41,6 @@ class Param extends ActiveRecord
                 'createdAtAttribute' => 'ts_created',
                 'updatedAtAttribute' => 'ts_updated',
             ],
-
         ];
     }
-
 }

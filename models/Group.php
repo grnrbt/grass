@@ -93,5 +93,4 @@ class Group extends ActiveRecord
         $this->title = $title;
         return $this;
     }
-
 }
