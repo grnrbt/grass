@@ -56,7 +56,7 @@ class User extends ActiveRecord implements IdentityInterface
             return null;
         }
 
-        return static::findOne(['reset_key' => $resetKey]);
+        return static::find()->andWhere(['reset_key' => $resetKey])->one();
     }
 
     /**
@@ -64,7 +64,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function find()
     {
-        return parent::find()->where(['is_active' => true]);
+        return parent::find()->andWhere(['is_active' => true]);
     }
 
     /**

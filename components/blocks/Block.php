@@ -1,7 +1,8 @@
 <?php
 
-namespace app\components;
+namespace app\components\blocks;
 
+use app\components\IObject;
 use yii\base\Widget;
 
 class Block extends Widget
