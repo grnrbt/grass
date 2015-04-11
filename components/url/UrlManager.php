@@ -1,11 +1,9 @@
 <?php
 
-namespace app\components;
+namespace app\components\url;
 
 use app\models\Route;
-use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
-use yii\web\UrlRule;
 
 class UrlManager extends \yii\web\UrlManager
 {
