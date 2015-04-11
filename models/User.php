@@ -29,6 +29,7 @@ class User extends ActiveRecord implements IdentityInterface
 {
     const SYSTEM_USER_ID = 1;
     const RESET_KEY_LIVE_TIME = 86400 * 30;
+
     public $passwordRaw;
 
     /**
