@@ -66,7 +66,10 @@ AppAsset::register($this);
         </div>
     </footer>
 
-<?php $this->endBody() ?>
+<?php
+    echo \app\widgets\AdminLinkWidget::widget();
+    $this->endBody();
+?>
 </body>
 </html>
 <?php $this->endPage() ?>
