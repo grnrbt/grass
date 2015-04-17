@@ -10,10 +10,12 @@ class AdminLinkAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'media/css/link.css',
+        'media/styles/link.css',
     ];
     public $js = [
-        'media/js/link.js'
+        'media/scripts/link.js',
+        'media/scripts/vendor/require.js',
+//        'media/scripts/vendor/jquery.cookie.js',
     ];
     public $depends = [
         'yii\web\JqueryAsset',
