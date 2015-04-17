@@ -9,18 +9,24 @@ $(function(){
        require(['panel']);
    });
 
-    require.config({
-        baseUrl: 'media/scripts',
-        paths: {
-            doT: 'vendor/dot',
-            panel: 'admin/panel',
-            text: 'vendor/text'
-        }
-    });
-
-    //require(['http://fb.me/react-0.13.1.js', ]);
-
 });
+
+require.config({
+    baseUrl: 'media/scripts',
+    paths: {
+        'doT': 'vendor/dot',
+        'riotjs': 'vendor/riot+compiler',
+        'panel': 'admin/panel',
+        'text': 'vendor/text'
+    },
+    shim: {
+        riotjs: {
+            exports: 'riot'
+        }
+    }
+});
+
+var riot;
 
 function loadCss(url) {
     var link = document.createElement("link");
