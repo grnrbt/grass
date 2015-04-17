@@ -1,8 +1,8 @@
 $(function(){
 
-    //if($.cookie('grass_panel')){
-    //    require(['panel']);
-    //}
+    if($.cookie('grass_panel')){
+        require(['panel']);
+    }
 
    $('#admin_link').on('click', function(e){
        e.preventDefault();
@@ -17,6 +17,8 @@ $(function(){
             text: 'vendor/text'
         }
     });
+
+    //require(['http://fb.me/react-0.13.1.js', ]);
 
 });
 
