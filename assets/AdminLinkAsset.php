@@ -13,9 +13,9 @@ class AdminLinkAsset extends AssetBundle
         'media/styles/link.css',
     ];
     public $js = [
-        'media/scripts/link.js',
         'media/scripts/vendor/jquery.cookie.js',
         'media/scripts/vendor/require.js',
+        'media/scripts/link.js',
     ];
     public $depends = [
         'yii\web\JqueryAsset',

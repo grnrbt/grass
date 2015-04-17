@@ -1,3 +1,15 @@
-<div id="admin_panel">
-    <p>GRASS {{=it.foo}}</p>
-</div>
+
+<panel>
+    <p>{opts.title}</p>
+
+    <ul>
+        <li each={items}>
+            <a>{title}</a>
+        </li>
+    </ul>
+
+    <script>
+        console.log(3);
+        this.items = [{title: '123'}, {title: '234'}, {title: '34534'}];
+    </script>
+</panel>
