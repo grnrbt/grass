@@ -7,6 +7,6 @@ define(function (require) {
         var resultText = tempFn({foo: 'with doT'});
         $('body').prepend(resultText);
 
-        //$.cookie('grass_panel', 1, { expires : 30 });
+        $.cookie('grass_panel', 1, { expires : 30 });
     });
 });
