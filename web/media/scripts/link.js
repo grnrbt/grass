@@ -1,12 +1,17 @@
 $(function(){
 
-    if($.cookie('grass_panel')){
+    function openPanel(){
         require(['panel']);
+        $('#admin_link').hide();
+    }
+
+    if($.cookie('grass_panel')){
+        openPanel();
     }
 
    $('#admin_link').on('click', function(e){
        e.preventDefault();
-       require(['panel']);
+       openPanel();
    });
 
 });

@@ -8,8 +8,22 @@
         </li>
     </ul>
 
+    <a href="#" onclick={close} class="admin_panel_close">Закрыть</a>
+
     <script>
-        console.log(3);
-        this.items = [{title: '123'}, {title: '234'}, {title: '34534'}];
+        this.items = [{title: 'Настройки'}, {title: 'Пользователи'}, {title: 'Группы'}];
+
+        this.on('mount', function() {
+            $('#admin_panel').slideDown();
+        });
+
+        close(e){
+            $('#admin_link').show();
+            $.removeCookie('grass_panel');
+            var self = this;
+            $('#admin_panel').slideUp(function(){
+                self.unmount(true);
+            });
+        }
     </script>
 </panel>
