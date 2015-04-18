@@ -9,7 +9,7 @@ class AdminLinkWidget extends Widget
 {
     public function run()
     {
-        if(\Yii::$app->user->getIdentity()->isAdmin()){
+        if(!\Yii::$app->user->isGuest && \Yii::$app->user->getIdentity()->isAdmin()){
             return $this->render('admin-link');
         }
     }
