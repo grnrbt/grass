@@ -28,7 +28,7 @@ class UrlManager extends \yii\web\UrlManager
         /** @var Route $route */
         $route = Route::find()->andWhere(['uri' => $uri])->one();
         if (!$route) {
-            throw new NotFoundHttpException;
+            return parent::parseRequest($request);
         }
 
         if ($route->getIdObject()) {
