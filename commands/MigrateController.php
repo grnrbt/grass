@@ -46,7 +46,9 @@ class MigrateController extends \yii\console\controllers\MigrateController
 
             if($this->addModules){
                 $allModules = array_keys(\Yii::$app->modules);
-                unset($allModules[array_search('gii', $allModules)]); // drop gii, todo make it smarter, maybe by some param
+                if(array_search('gii', $allModules) !== false){
+                    unset($allModules[array_search('gii', $allModules)]);
+                }
                 array_unshift($allModules, ''); // added empty value for core migrations
 
                 if(is_string($this->addModules)){
