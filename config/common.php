@@ -33,6 +33,10 @@ return [
         'init' => [
             'class' => 'app\components\Init',
         ],
+        'authManager' => [
+            'class' => 'yii\rbac\PhpManager',
+            'defaultRoles' => ['admin', 'user'],
+        ],
     ],
     'params' => require(__DIR__ . '/params.php'),
 ];
