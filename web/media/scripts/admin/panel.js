@@ -3,10 +3,18 @@ define(function (require) {
     require(['riotjs'], function(Riot, template) {
         riot = Riot;
 
-        $('body').prepend('<script src="/media/scripts/admin/templates/panel.html" type="riot/tag"></script>');
-        $('body').prepend('<panel id="admin_panel"></panel>');
+        var $body = $('body');
+        $body.prepend('<script src="/media/scripts/admin/templates/panel.html" type="riot/tag"></script>');
+        $body.prepend('<panel id="admin_panel"></panel>');
 
         riot.mount('panel', {title: 'GRASS'});
+
+        riot.route('/');
+        //riot.route.start();
+
+        //riot.route(function(module, controller, action) {
+        //
+        //});
 
         $.cookie('grass_panel', 1, { expires : 30 });
     });
