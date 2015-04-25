@@ -34,10 +34,10 @@ class AdminController extends Controller
                 'url' => '/',
                 'title' => 'Общее',
                 'items' => [
-                    ['url' => '/settings', 'title' => 'Настройки',],
-                    ['url' => '/users', 'title' => 'Пользователи',],
-                    ['url' => '/groups', 'title' => 'Группы',],
-                    ['url' => '/tools', 'title' => 'Инструменты',],
+                    ['url' => 'settings', 'title' => 'Настройки',],
+                    ['url' => 'users', 'title' => 'Пользователи',],
+                    ['url' => 'groups', 'title' => 'Группы',],
+                    ['url' => 'tools', 'title' => 'Инструменты',],
                 ],
             ],
         ];

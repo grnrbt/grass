@@ -1,10 +1,15 @@
 
 <panel>
-    <p>{opts.title}</p>
+    <p>{opts.panel.title}</p>
 
     <ul>
-        <li each={items}>
-            <a>{title}</a>
+        <li each={opts.panel.items}>
+            <a href="#{url}">{title}</a>
+            <ul if={items}>
+                <li each={items}>
+                    <a href="#{url}">{title}</a>
+                </li>
+            </ul>
         </li>
     </ul>
 
@@ -12,27 +17,13 @@
 
     <script>
         var self = this;
-        function Menu(){
-            riot.observable(this);
-            this.on('update', function(){
-                $.get('/admin')
-                    .success(function(items) {
-                            self.items = items;
-                            self.update();
-                            $('#admin_panel').slideDown();
-                    });
-
-            });
-
-        }
-
-
-//        this.items = [{title: 'Настройки'}, {title: 'Пользователи'}, {title: 'Группы'}];
-
-        menu = new Menu();
 
         this.on('mount', function() {
-            menu.trigger('update');
+            opts.panel.trigger('update');
+        });
+
+        opts.panel.on('redraw', function(){
+            self.update();
         });
 
         close(e){
