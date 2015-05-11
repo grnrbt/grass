@@ -4,8 +4,9 @@ define(function (require) {
         riot = Riot;
 // include basic html
         var $body = $('body');
+        //$body.prepend('<script src="/media/scripts/vendor/riot-bootstrap.min.js" async="async"></script>');
         $body.prepend('<script src="/media/scripts/admin/templates/panel.html" type="riot/tag"></script>');
-        $body.prepend('<panel id="admin_panel"></panel>');
+        $body.prepend('<panel id="admin_panel" class="navbar-default navbar-fixed-top navbar"></panel>');
 
 // init
         var panel = new Panel();
