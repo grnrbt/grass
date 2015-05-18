@@ -19,7 +19,7 @@ $(function(){
 require.config({
     baseUrl: 'media/scripts',
     paths: {
-        'doT': 'vendor/dot',
+    //    'doT': 'vendor/dot',
         'riotjs': 'vendor/riot+compiler',
         'panel': 'admin/panel',
         'text': 'vendor/text'

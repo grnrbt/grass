@@ -29,12 +29,14 @@ class AdminController extends Controller
 
     public function actionIndex()
     {
+
+
         $menu = [
             [
                 'url' => '/',
                 'title' => 'Общее',
                 'items' => [
-                    ['url' => 'settings', 'title' => 'Настройки',],
+                    ['url' => 'settings', 'title' => 'Настройки', 'assets' => ['js' => [], 'css' => [], 'html' => []]],
                     ['url' => 'users', 'title' => 'Пользователи',],
                     ['url' => 'groups', 'title' => 'Группы',],
                     ['url' => 'tools', 'title' => 'Инструменты',],
