@@ -8,7 +8,6 @@ use yii\base\Component;
 
 class Init extends Component
 {
-
     public function init()
     {
         parent::init();
