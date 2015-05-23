@@ -8,6 +8,7 @@ use yii\helpers\ArrayHelper;
 
 /**
  * Class Config
+ *
  * @package app\models
  *
  * @property int $id
@@ -39,11 +40,11 @@ class Config extends ActiveRecord
                 'createdAtAttribute' => false, // config params are not created in run-time
                 'updatedAtAttribute' => 'ts_updated',
             ],
-
         ];
     }
 
-    public function init(){
+    public function init()
+    {
         static::loadCache();
 
         parent::init();
@@ -54,10 +55,18 @@ class Config extends ActiveRecord
      */
     public static function loadCache()
     {
-        static::$cache = \Yii::$app->cache->get(static::CACHE_KEY);
-        if(static::$cache === false){
-            static::$cache = ArrayHelper::map(Config::find()->asArray()->select(['code', 'value'])->all(), 'code', 'value');
-            \Yii::$app->cache->set(static::CACHE_KEY, static::$cache, \Yii::$app->params['configCache']);
+        // TODO: hack. We can't run migration until config will load. First migration is faild.
+        if (\Yii::$app->getDb()->getSchema()->getTableSchema(static::tableName()) === null) {
+            return;
+        }
+
+        $cache = \Yii::$app->cache;
+        static::$cache = $cache->get(static::CACHE_KEY);
+
+        if (static::$cache === false) {
+            $values = Config::find()->asArray()->select(['code', 'value'])->all();
+            static::$cache = ArrayHelper::map($values, 'code', 'value');
+            $cache->set(static::CACHE_KEY, static::$cache, \Yii::$app->params['configCacheDuration']);
         }
     }
 
@@ -70,7 +79,7 @@ class Config extends ActiveRecord
      */
     public static function get($param, $default = null)
     {
-        if(isset(static::$cache[$param])){
+        if (isset(static::$cache[$param])) {
             return static::$cache[$param];
         }
 
@@ -108,8 +117,6 @@ class Config extends ActiveRecord
             [['category', 'description',], 'string', 'max' => 255],
         ];
     }
-
-
 
     public function setValue($value)
     {
