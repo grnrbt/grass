@@ -1,7 +1,8 @@
 <?php
 
-namespace app\modules\Test;
+namespace app\modules\test;
 
+use app\modules\test\assets\AdminAsset;
 use yii\base\Module;
 
 class Test extends Module
@@ -11,6 +12,9 @@ class Test extends Module
      */
     public static function getAdminLinks()
     {
+        $assets = AdminAsset::register(\Yii::$app->view);
+        $baseUrl = $assets->baseUrl;
+
         return [
             [
                 'url' => '/test',

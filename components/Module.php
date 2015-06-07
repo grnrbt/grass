@@ -11,4 +11,14 @@ namespace app\components;
 class Module extends \yii\base\Module
 {
     public $isActive;
+
+    /**
+     * get links for admin frontend interfaces
+     *
+     * @return array
+     */
+    public static function getAdminLinks()
+    {
+
+    }
 }
