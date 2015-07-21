@@ -2,7 +2,7 @@
 
 namespace app\models\beds;
 
-use app\components\blocks\Block;
+use app\blocks\Block;
 use app\components\IObject;
 
 class BedRenderer

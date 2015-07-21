@@ -3,8 +3,6 @@
 namespace app\components;
 
 use yii\base\Behavior;
-use yii\base\Model;
-use app\components\ActiveRecord;
 use yii\db\Exception;
 use yii\validators\Validator;
 
@@ -12,7 +10,7 @@ use yii\validators\Validator;
  * Class ParamBehavior
  * @package app\components
  *
- * @property Model $owner
+ * @property ActiveRecord $owner
  */
 class ParamBehavior extends Behavior
 {

@@ -2,7 +2,9 @@
 
 namespace app\components\blocks;
 
-class HtmlParamBlock extends Block
+use app\blocks\Block;
+
+class HtmlBlock extends Block
 {
     public function run()
     {
