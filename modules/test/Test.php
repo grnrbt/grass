@@ -2,8 +2,8 @@
 
 namespace app\modules\test;
 
+use app\components\Module;
 use app\modules\test\assets\AdminAsset;
-use yii\base\Module;
 
 class Test extends Module
 {
