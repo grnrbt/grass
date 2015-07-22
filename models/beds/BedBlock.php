@@ -16,6 +16,14 @@ use app\components\ParamBehavior;
 abstract class BedBlock extends ActiveRecord
 {
     /**
+     * @return BedBlockQuery
+     */
+    public static function find()
+    {
+        return new BedBlockQuery(static::class);
+    }
+
+    /**
      * @inheritdoc
      */
     public function behaviors()

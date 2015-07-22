@@ -49,7 +49,7 @@ class BedRenderer
     protected function getBlocks()
     {
         if ($this->blocks === null) {
-            foreach ($this->bed->enabledBlocks as $block) {
+            foreach ($this->bed->getBlocks()->activeOnly()->each() as $block) {
                 $class = $block->getSource();
                 $this->blocks[] = new $class($this->object, $block->getParams());
             }

@@ -3,25 +3,19 @@
 namespace app\models\beds;
 
 use app\components\ActiveRecord;
-use yii\db\ActiveQuery;
 
 /**
  * @property int $id
  * @property int $id_proto
  * @property bool $is_default
  * @property BedBlock[] $blocks
- * @property BedBlock[] $enabledBlocks
  */
 abstract class Bed extends ActiveRecord
 {
     /**
-     * @return ActiveQuery
+     * @return BedBlockQuery
      */
     abstract public function getBlocks();
-    /**
-     * @return ActiveQuery
-     */
-    abstract public function getEnabledBlocks();
 
     /**
      * @return int
