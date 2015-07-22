@@ -18,16 +18,10 @@ abstract class Bed extends ActiveRecord
      * @return ActiveQuery
      */
     abstract public function getBlocks();
-
     /**
      * @return ActiveQuery
      */
-    public function getEnabledBlocks()
-    {
-        return $this
-            ->getBlocks()
-            ->andWhere([BedBlock::tableName() . '.is_enabled' => true]);
-    }
+    abstract public function getEnabledBlocks();
 
     /**
      * @return int

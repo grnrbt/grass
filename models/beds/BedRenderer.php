@@ -9,7 +9,7 @@ class BedRenderer
 {
     protected $bed;
     protected $object;
-    protected $widgets = [];
+    protected $blocks;
     protected $renderBuffer;
 
     public function __construct(Bed $bed, IObject $object)
@@ -35,8 +35,8 @@ class BedRenderer
     {
         if ($this->renderBuffer === null) {
             $renderBuffer = [];
-            foreach ($this->getWidgets() as $widget) {
-                $renderBuffer[] = $widget->run();
+            foreach ($this->getBlocks() as $block) {
+                $renderBuffer[] = $block->run();
             }
             $this->renderBuffer = implode('', $renderBuffer);
         }
@@ -46,16 +46,16 @@ class BedRenderer
     /**
      * @return Block[]
      */
-    protected function getWidgets()
+    protected function getBlocks()
     {
-        if ($this->widgets === null) {
+        if ($this->blocks === null) {
             foreach ($this->bed->enabledBlocks as $block) {
                 $class = $block->getSource();
-                $this->widgets[] = new $class($this->object, $block->getParams());
+                $this->blocks[] = new $class($this->object, $block->getParams());
             }
         }
 
-        return $this->widgets;
+        return $this->blocks;
     }
 
 }

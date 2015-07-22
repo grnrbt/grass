@@ -35,7 +35,6 @@ abstract class Controller extends \yii\web\Controller
 
             foreach ($object->getBeds() as $name => $bed) {
                 $params[self::BEDS_PARAMS_INDEX][$name] = new BedRenderer($bed, $object);
-
             }
         }
 

@@ -1,6 +1,7 @@
 <?php
 
 namespace app\models\beds;
+
 use app\components\ActiveRecord;
 use app\components\ParamBehavior;
 
@@ -121,7 +122,7 @@ abstract class BedBlock extends ActiveRecord
      */
     public function getParams()
     {
-        return $this->params;
+        return json_decode($this->params, true);
     }
 
     /**

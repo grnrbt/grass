@@ -1,6 +1,6 @@
 <?php
 
-namespace app\components\blocks;
+namespace app\blocks\html;
 
 use app\blocks\Block;
 
