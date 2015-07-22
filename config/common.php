@@ -8,12 +8,12 @@ return [
     'modules' => require(__DIR__ . '/modules.php'),
     'components' => [
         'db' => require(__DIR__ . '/db.php'),
-        'cache' => 'yii\caching\FileCache',
-        'eventManager' => 'app\components\EventManager',
+        'cache' => \yii\caching\FileCache::class,
+        'eventManager' => \app\components\EventManager::class,
         'i18n' => [
             'translations' => [
                 '*' => [
-                    'class' => 'app\components\PhpMessageSource',
+                    'class' => \app\components\PhpMessageSource::class,
                 ],
             ],
         ],
@@ -21,20 +21,20 @@ return [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
                 [
-                    'class' => 'yii\log\FileTarget',
+                    'class' => \yii\log\FileTarget::class,
                     'levels' => ['error', 'warning'],
                 ],
             ],
         ],
         'mailer' => [
-            'class' => 'yii\swiftmailer\Mailer',
+            'class' => \yii\swiftmailer\Mailer::class,
             'useFileTransport' => true,
         ],
         'init' => [
-            'class' => 'app\components\Init',
+            'class' => \app\components\Init::class,
         ],
         'authManager' => [
-            'class' => 'yii\rbac\PhpManager',
+            'class' => \yii\rbac\PhpManager::class,
             'defaultRoles' => ['admin', 'user'],
         ],
     ],
