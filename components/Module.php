@@ -4,13 +4,15 @@ namespace app\components;
 
 /**
  * Class Module
- * @package app\components
  *
- * @property boolean $isActive is this module active (it migrates, propagates its block in admin zone etc)
+ * @package app\components
  */
 class Module extends \yii\base\Module
 {
-    public $isActive;
+    /**
+     * @var bool = false Is this module active (it migrates, propagates its block in admin zone etc)
+     */
+    public $isActive = false;
 
     /**
      * get links for admin frontend interfaces
