@@ -3,7 +3,6 @@
 namespace app\components\url;
 
 use app\models\Route;
-use yii\web\NotFoundHttpException;
 
 class UrlManager extends \yii\web\UrlManager
 {
@@ -17,7 +16,6 @@ class UrlManager extends \yii\web\UrlManager
 
         parent::init();
     }
-
 
     /**
      * @inheritdoc

@@ -9,6 +9,8 @@ namespace app\components;
  */
 class Module extends \yii\base\Module
 {
+    use BlockControllerTrait;
+
     /**
      * @var bool = false Is this module active (it migrates, propagates its block in admin zone etc)
      */

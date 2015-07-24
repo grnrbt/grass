@@ -2,7 +2,7 @@
 
 namespace app\blocks\html;
 
-use app\components\BlockController;
+use app\blocks\BlockController;
 
 class HtmlController extends BlockController
 {
