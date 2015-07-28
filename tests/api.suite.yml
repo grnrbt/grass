@@ -1,0 +1,9 @@
+class_name: ApiTester
+modules:
+    enabled: [PhpBrowser, REST, ApiHelper]
+    config:
+        colors: true
+        PhpBrowser:
+            url: http://site.loc
+        REST:
+            url: http://site.loc
