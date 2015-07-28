@@ -10,6 +10,13 @@ use yii\base\InvalidConfigException;
 trait BlockControllerTrait
 {
     /**
+     * Anchor using for block controllers routing.
+     * @see BlockControllerTrait::createControllerByID()
+     * @var string
+     */
+    public static $blockUrlAnchor = 'blocks';
+
+    /**
      * Base namespace for block controllers.
      *
      * @see self::controllerNamespace;
@@ -17,7 +24,6 @@ trait BlockControllerTrait
      */
     public $blockNamespace;
 
-    public $blockUrlAnchor = 'blocks';
 
     /**
      * @inheritdoc
@@ -49,9 +55,9 @@ trait BlockControllerTrait
         }
 
         $baseNamespace = $this->controllerNamespace;
-        if (strpos($prefix, $this->blockUrlAnchor) === 0) {
+        if (strpos($prefix, static::$blockUrlAnchor) === 0) {
             $baseNamespace = $this->blockNamespace;
-            $prefix = substr($prefix, strlen($this->blockUrlAnchor) + 1).$className.'/';
+            $prefix = substr($prefix, strlen(static::$blockUrlAnchor) + 1).$className.'/';
             $prefix = lcfirst(str_replace(' ', '', ucwords(str_replace('-', ' ', $prefix))));
         }
 
