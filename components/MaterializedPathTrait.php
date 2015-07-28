@@ -20,6 +20,10 @@ trait MaterializedPathTrait
     private $parents = [];
     private $isParentsLoaded = false;
 
+    /**
+     * @param bool $force = false
+     * @return MaterializedPathTrait[]
+     */
     public function getParents($force = false)
     {
         if (!$this->isParentsLoaded || $force) {
@@ -37,9 +41,14 @@ trait MaterializedPathTrait
         return $this->parents;
     }
 
+    /**
+     * @param bool $force = false
+     * @return MaterializedPathTrait[]
+     */
     public function getChildren($force = false)
     {
         if (!$this->isChildrenLoaded || $force) {
+            /** @var MaterializedPathTrait[] $records */
             $records = $this->find()
                 ->andWhere('path && array[' . $this->id . ']')
                 ->andWhere(['>', 'depth', $this->depth])
@@ -56,11 +65,9 @@ trait MaterializedPathTrait
         return $this->children;
     }
 
-    public function makeRoot()
-    {
-        $this->appendTo();
-    }
-
+    /**
+     * @param MaterializedPathTrait $node
+     */
     protected function addChild($node)
     {
         if ($this->isParentOf($node)) {
@@ -74,6 +81,11 @@ trait MaterializedPathTrait
         }
     }
 
+    /**
+     * @param MaterializedPathTrait $node
+     * @param bool $prevLevelOnly = true
+     * @return bool
+     */
     public function isParentOf($node, $prevLevelOnly = true)
     {
         if ($node->id == $this->id) {
