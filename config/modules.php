@@ -7,7 +7,7 @@ return [
     ],
     'test' => [
         'class' => app\modules\test\Test::class,
-        'isActive' => true,
+        'isActive' => YII_DEBUG,
     ],
     'content' => [
         'class' => app\modules\content\Content::class,
