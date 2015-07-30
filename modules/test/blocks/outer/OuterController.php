@@ -8,6 +8,6 @@ class OuterController extends BlockController
 {
     public function actionTestView()
     {
-        echo "Outer block controller is running!";
+        echo "Outer block controller (in module) is running!";
     }
 }

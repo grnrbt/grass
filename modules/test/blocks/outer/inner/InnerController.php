@@ -8,6 +8,6 @@ class InnerController extends BlockController
 {
     public function actionTestView()
     {
-        echo "Inner block controller is running!";
+        echo "Inner block controller (in module) is running!";
     }
 }
