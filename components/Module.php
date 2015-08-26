@@ -25,4 +25,36 @@ class Module extends \yii\base\Module
     {
 
     }
+
+    /**
+     * Get list of menu generators.
+     *
+     * @return null|array List of generators. Null if there no menus in this module.
+     * [
+     *  $id => [
+     *      'name' => pretty name of generator,
+     *      'description' => description of generator logic,
+     *      'source' => generator method (callable). Returning value must be comparable with @see \yii\widgets\Menu::items.
+     *  ],
+     * ]
+     */
+    public static function getMenus()
+    {
+        return null;
+    }
+
+    /**
+     * @param string $id Id of menu
+     * @return callable|null Returns menu-generator method.
+     */
+    public function getMenuSourceById($id)
+    {
+        $menus = static::getMenus();
+        if (!isset($menus[$id])) {
+            return null;
+        }
+
+        return $menus[$id]['source'];
+    }
+
 }

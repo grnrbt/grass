@@ -3,6 +3,7 @@
 namespace app\components\url;
 
 use yii\base\Object;
+use yii\helpers\Url;
 
 class UrlData extends Object
 {
@@ -21,6 +22,14 @@ class UrlData extends Object
      * @see \yii\helpers\BaseUrl::toRoute()
      */
     public $route;
+
+    /**
+     * @return string
+     */
+    public function getUrl()
+    {
+        return Url::toRoute($this->route);
+    }
 
     /**
      * @return string

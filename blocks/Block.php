@@ -12,7 +12,7 @@ abstract class Block extends Widget
     /** @var array */
     protected $params;
 
-    public function __construct(IObject $object, array $params = [], $config = [])
+    public function __construct(IObject $object = null, array $params = [], $config = [])
     {
         $this->object = $object;
         $this->params = $params;
