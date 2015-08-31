@@ -1,6 +1,7 @@
 <?php
 
 use app\components\Migration;
+use app\models\MenuItem;
 
 class m150824_203504_add_menu_table extends Migration
 {
@@ -17,7 +18,7 @@ class m150824_203504_add_menu_table extends Migration
     public function init()
     {
         parent::init();
-        $this->tbl = "menu_item"; // TODO: use tableName() method.
+        $this->tbl = MenuItem::tableName();
         $this->positionIndex = "{$this->tbl}_position";
         $this->placementIndex = "{$this->tbl}_placement";
         $this->idMenuIndex = "{$this->tbl}id_menu";

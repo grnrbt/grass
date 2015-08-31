@@ -6,18 +6,21 @@ use \app\models\Group;
 
 class m150318_165522_add_groups_table extends Migration
 {
-    private $userTableNameUnprefixed;
+    private $userTblNameUnprefixed;
 
-    private $userTable;
-    private $groupTable;
+    private $userTbl;
+    private $groupTbl;
+    private $userIdGroupFk;
 
     public function init()
     {
         parent::init();
 
-        $this->userTableNameUnprefixed = User::tableNameUnprefixed();
-        $this->userTable = User::tableName();
-        $this->groupTable = Group::tableName();
+        $this->userTblNameUnprefixed = User::tableNameUnprefixed();
+        $this->userTbl = User::tableName();
+        $this->groupTbl = Group::tableName();
+
+        $this->userIdGroupFk = $this->generateFkName($this->userTbl, 'id_group', $this->groupTbl, 'id');
     }
 
     public function getType()
@@ -27,22 +30,20 @@ class m150318_165522_add_groups_table extends Migration
 
     public function safeUp()
     {
-        $this->createTable($this->groupTable, [
-                'id' => 'serial primary key',
-                'title' => 'varchar(255) NOT NULL',
-                'params' => 'jsonb NULL',
-                'ts_created' => 'timestamp DEFAULT CURRENT_TIMESTAMP',
-                'ts_updated' => 'timestamp DEFAULT CURRENT_TIMESTAMP',
-            ]
-        );
+        $this->createTable($this->groupTbl, [
+            'id' => 'serial primary key',
+            'title' => 'varchar(255) NOT NULL',
+            'params' => 'jsonb NULL',
+            'ts_created' => 'timestamp DEFAULT CURRENT_TIMESTAMP',
+            'ts_updated' => 'timestamp DEFAULT CURRENT_TIMESTAMP',
+        ]);
 
-        $this->addForeignKeyWithAutoNamed($this->userTable, 'id_group', $this->groupTable, 'id', 'cascade', 'cascade');
+        $this->addForeignKey($this->userIdGroupFk, $this->userTbl, 'id_group', $this->groupTbl, 'id', 'cascade', 'cascade');
     }
 
     public function safeDown()
     {
-        $this->dropForeignKey($this->generateFkName($this->userTable, 'id_group', $this->groupTable, 'id'), $this->userTable);
-
-        $this->dropTable($this->groupTable);
+        $this->dropForeignKey($this->userIdGroupFk, $this->userTbl);
+        $this->dropTable($this->groupTbl);
     }
 }

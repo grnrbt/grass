@@ -12,16 +12,25 @@ use app\components\Migration;
 
 class <?= $className ?> extends Migration
 {
+    /**
+    * @inheritdoc
+    */
     public function getType()
     {
         return self::TYPE_STRUCT;
     }
 
+    /**
+    * @inheritdoc
+    */
     public function safeUp()
     {
 
     }
 
+    /**
+    * @inheritdoc
+    */
     public function safeDown()
     {
         echo "<?= $className ?> cannot be reverted.\n";

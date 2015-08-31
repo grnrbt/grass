@@ -12,12 +12,10 @@ class m150319_153339_add_auth_pages extends Migration
 
     public function safeUp()
     {
-        $this->batchInsert(Route::tableName(), ['uri', 'id_action'],
-            [
-                ['login', 'site/login'],
-                ['logout', 'site/logout'],
-            ]
-        );
+        $this->batchInsert(Route::tableName(), ['uri', 'id_action'], [
+            ['login', 'site/login'],
+            ['logout', 'site/logout'],
+        ]);
     }
 
     public function safeDown()
