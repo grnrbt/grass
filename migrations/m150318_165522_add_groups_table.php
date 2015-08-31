@@ -6,8 +6,6 @@ use \app\models\Group;
 
 class m150318_165522_add_groups_table extends Migration
 {
-    private $userTblNameUnprefixed;
-
     private $userTbl;
     private $groupTbl;
     private $userIdGroupFk;
@@ -16,11 +14,10 @@ class m150318_165522_add_groups_table extends Migration
     {
         parent::init();
 
-        $this->userTblNameUnprefixed = User::tableNameUnprefixed();
         $this->userTbl = User::tableName();
         $this->groupTbl = Group::tableName();
 
-        $this->userIdGroupFk = $this->generateFkName($this->userTbl, 'id_group', $this->groupTbl, 'id');
+        $this->userIdGroupFk = $this->createFkData($this->userTbl, 'id_group', $this->groupTbl, 'id', 'cascade', 'cascade');
     }
 
     public function getType()
@@ -38,12 +35,12 @@ class m150318_165522_add_groups_table extends Migration
             'ts_updated' => 'timestamp DEFAULT CURRENT_TIMESTAMP',
         ]);
 
-        $this->addForeignKey($this->userIdGroupFk, $this->userTbl, 'id_group', $this->groupTbl, 'id', 'cascade', 'cascade');
+        $this->addForeignKey(...$this->userIdGroupFk);
     }
 
     public function safeDown()
     {
-        $this->dropForeignKey($this->userIdGroupFk, $this->userTbl);
+        $this->dropForeignKey(...$this->userIdGroupFk);
         $this->dropTable($this->groupTbl);
     }
 }

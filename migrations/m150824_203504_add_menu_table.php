@@ -19,9 +19,9 @@ class m150824_203504_add_menu_table extends Migration
     {
         parent::init();
         $this->tbl = MenuItem::tableName();
-        $this->positionIndex = "{$this->tbl}_position";
-        $this->placementIndex = "{$this->tbl}_placement";
-        $this->idMenuIndex = "{$this->tbl}id_menu";
+        $this->positionIndex = $this->createIndexData($this->tbl, "position");
+        $this->placementIndex = $this->createIndexData($this->tbl, "placement");
+        $this->idMenuIndex = $this->createIndexData($this->tbl, "id_menu");
     }
 
     public function safeUp()
@@ -37,16 +37,16 @@ class m150824_203504_add_menu_table extends Migration
             'ts_created' => 'timestamp DEFAULT CURRENT_TIMESTAMP',
             'ts_updated' => 'timestamp DEFAULT CURRENT_TIMESTAMP',
         ]);
-        $this->createIndex($this->positionIndex, $this->tbl, "position");
-        $this->createIndex($this->placementIndex, $this->tbl, "placement");
-        $this->createIndex($this->idMenuIndex, $this->tbl, "id_menu");
+        $this->createIndex(...$this->positionIndex);
+        $this->createIndex(...$this->placementIndex);
+        $this->createIndex(...$this->idMenuIndex);
     }
 
     public function safeDown()
     {
-        $this->dropIndex($this->idMenuIndex, $this->tbl);
-        $this->dropIndex($this->positionIndex, $this->tbl);
-        $this->dropIndex($this->placementIndex, $this->tbl);
+        $this->dropIndex(...$this->positionIndex);
+        $this->dropIndex(...$this->placementIndex);
+        $this->dropIndex(...$this->idMenuIndex);
         $this->dropTable($this->tbl);
     }
 }

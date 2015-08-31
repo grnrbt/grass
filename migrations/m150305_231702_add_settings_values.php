@@ -1,9 +1,18 @@
 <?php
 
 use app\components\Migration;
+use app\models\Config;
 
 class m150305_231702_add_settings_values extends Migration
 {
+    private $configTbl;
+
+    public function init()
+    {
+        parent::init();
+        $this->configTbl = Config::tableName();
+    }
+
     public function getType()
     {
         return self::TYPE_BASE;
@@ -12,7 +21,7 @@ class m150305_231702_add_settings_values extends Migration
     public function safeUp()
     {
         // todo localization
-        $this->batchInsert(\app\models\Config::tableName(),
+        $this->batchInsert( $this->configTbl,
             ["code", "type", "category", "title", "description", "value"],
             [
                 ['siteName', 'string', 'Основные', 'Название сайта', 'Название сайта, используемое в тайтле, футере', 'GRASS'],
@@ -23,11 +32,11 @@ class m150305_231702_add_settings_values extends Migration
                 ['mailSenderMail', 'string', 'Основные', 'Email отправителя', 'Email, указанный в качестве отправителя писем с сайта', 'info@greenrabbit.ru'],
                 ['mailSenderName', 'string', 'Основные', 'Имя отправителя', 'Имя, указанное в качестве отправителя писем с сайта', 'Webmaster'],
             ]
-            );
+        );
     }
 
     public function safeDown()
     {
-        $this->delete(\app\models\Config::tableName());
+        $this->delete( $this->configTbl);
     }
 }

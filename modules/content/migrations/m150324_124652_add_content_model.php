@@ -19,13 +19,11 @@ class m150324_124652_add_content_model extends Migration
     public function init()
     {
         parent::init();
-
         $this->table = Content::tableName();
-        $table = Content::tableNameUnprefixed();
-        $this->isActiveIndex = $table . '_is_active';
-        $this->isHiddenIndex = $table . '_is_hidden';
-        $this->positionIndex = $table . '_position';
-        $this->pathIndex = $table . '_path';
+        $this->isActiveIndex = $this->createIndexData($this->table, 'is_active');
+        $this->isHiddenIndex = $this->createIndexData($this->table, 'is_hidden');
+        $this->positionIndex = $this->createIndexData($this->table, 'position');
+        $this->pathIndex = $this->createIndexData($this->table, 'path');
     }
 
     public function safeUp()
@@ -45,14 +43,18 @@ class m150324_124652_add_content_model extends Migration
             'ts_updated' => 'timestamp DEFAULT CURRENT_TIMESTAMP',
         ]);
 
-        $this->createIndex($this->isActiveIndex, $this->table, 'is_active');
-        $this->createIndex($this->isHiddenIndex, $this->table, 'is_hidden');
-        $this->createIndex($this->positionIndex, $this->table, 'position');
-        $this->createIndex($this->pathIndex, $this->table, 'path');
+        $this->createIndex(...$this->isActiveIndex);
+        $this->createIndex(...$this->isHiddenIndex);
+        $this->createIndex(...$this->positionIndex);
+        $this->createIndex(...$this->pathIndex);
     }
 
     public function safeDown()
     {
+        $this->dropIndex(...$this->isActiveIndex);
+        $this->dropIndex(...$this->isHiddenIndex);
+        $this->dropIndex(...$this->positionIndex);
+        $this->dropIndex(...$this->pathIndex);
         $this->dropTable($this->table);
     }
 }

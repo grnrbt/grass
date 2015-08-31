@@ -20,60 +20,6 @@ abstract class Migration extends \yii\db\Migration
     abstract public function getType();
 
     /**
-     * @inheritdoc
-     */
-    public function addForeignKey($name, $table, $columns, $refTable, $refColumns, $delete = null, $update = null)
-    {
-        $name = $this->clearConstraintName($name);
-        parent::addForeignKey($name, $table, $columns, $refTable, $refColumns, $delete, $update);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function dropForeignKey($name, $table)
-    {
-        $name = $this->clearConstraintName($name);
-        parent::dropForeignKey($name, $table);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function createIndex($name, $table, $columns, $unique = false)
-    {
-        $name = $this->clearConstraintName($name);
-        parent::createIndex($name, $table, $columns, $unique);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function dropIndex($name, $table)
-    {
-        $name = $this->clearConstraintName($name);
-        parent::dropIndex($name, $table);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function addPrimaryKey($name, $table, $columns)
-    {
-        $name = $this->clearConstraintName($name);
-        parent::addPrimaryKey($name, $table, $columns);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function dropPrimaryKey($name, $table)
-    {
-        $name = $this->clearConstraintName($name);
-        parent:: dropPrimaryKey($name, $table);
-    }
-
-    /**
      * Add foreign key with auto generating name.
      *
      * @param string $table
@@ -97,7 +43,7 @@ abstract class Migration extends \yii\db\Migration
         $update = null,
         $cutName = false
     ) {
-        $fkName = $this->generateFkName($table, $columns, $refTable, $refColumns, $cutName);
+        $fkName = $this->createFkName($table, $columns, $refTable, $refColumns, $cutName);
 
         $this->addForeignKey(
             $fkName,
@@ -112,47 +58,125 @@ abstract class Migration extends \yii\db\Migration
 
     /**
      * @param string $table
-     * @param string $columns
-     * @param string $refTable
-     * @param string $refColumns
-     * @param bool $cutLongName = true
+     * @param string|array $columns
+     * @param bool $reduceLongName = true
      * @return string
-     * @throws Exception
      */
-    protected function generateFkName($table, $columns, $refTable, $refColumns, $cutLongName = true)
+    protected function createIndexName($table, $columns, $reduceLongName = true)
     {
-        // TODO: add support of multiple columns.
-        if (is_array($columns) || strpos($columns, ',') !== false) {
-            throw new Exception(\Yii::t(
-                'errors',
-                'This method don\'t support multiple $columns. Use \yii\db\Migration::addForeignKey()'
-            ));
-        }
-        if (is_array($refColumns) || strpos($refColumns, ',') !== false) {
-            throw new Exception(\Yii::t(
-                'errors',
-                'This method don\'t support multiple $refColumns. Use \yii\db\Migration::addForeignKey()'
-            ));
+        if (!is_array($columns)) {
+            if (strpos($columns, ',') !== false) {
+                $columns = explode(',', $columns);
+            } else {
+                $columns = [$columns];
+            }
         }
 
-        $name = $this->db->schema->getRawTableName($table) . '_' . $columns . '_' .
-            $this->db->schema->getRawTableName($refTable) . '_' . $refColumns;
-        $length = strlen($name);
-        if ($cutLongName && ($length > self::MAX_FK_NAME_LENGTH)) {
-            $name = substr($name, $length - self::MAX_FK_NAME_LENGTH);
+        $name = $this->db->schema->getRawTableName($table) . '_' . implode('_', $columns);
+
+        if ($reduceLongName) {
+            $name = $this->reduceLongConstraintName($name);
         }
 
         return $name;
     }
 
     /**
-     * Removes from name tablePrefix markers.
-     *
+     * @param string $table
+     * @param string|array $columns
+     * @param string $refTable
+     * @param string|array $refColumns
+     * @param bool $reduceLongName = true
+     * @return string
+     * @throws Exception
+     */
+    protected function createFkName($table, $columns, $refTable, $refColumns, $reduceLongName = true)
+    {
+        if (!is_array($columns)) {
+            if (strpos($columns, ',') !== false) {
+                $columns = explode(',', $columns);
+            } else {
+                $columns = [$columns];
+            }
+        }
+        if (!is_array($refColumns)) {
+            if (strpos($refColumns, ',') !== false) {
+                $refColumns = explode(',', $refColumns);
+            } else {
+                $refColumns = [$refColumns];
+            }
+        }
+
+        $name = $this->db->schema->getRawTableName($table) . '_' . implode('_', $columns) .
+            '_' .
+            $this->db->schema->getRawTableName($refTable) . '_' . implode('_', $refColumns);
+
+        if ($reduceLongName) {
+            $name = $this->reduceLongConstraintName($name);
+        }
+
+        return $name;
+    }
+
+    /**
+     * @param string $table
+     * @param string|array $columns
+     * @param string $refTable
+     * @param string|array $refColumns
+     * @param string $delete = null
+     * @param string $update = null
+     * @param bool $reduceLongName = true
+     * @return array [name, table, columns, refTable, refColumns, delete, update]
+     */
+    protected function createFkData(
+        $table,
+        $columns,
+        $refTable,
+        $refColumns,
+        $delete = null,
+        $update = null,
+        $reduceLongName = true
+    ) {
+        return [
+            $this->createFkName($table, $columns, $refTable, $refColumns, $reduceLongName),
+            $table,
+            $columns,
+            $refTable,
+            $refColumns,
+            $delete,
+            $update
+        ];
+    }
+
+    /**
+     * @param string $table
+     * @param string|array $columns
+     * @param bool $unique = false
+     * @param bool $reduceLongName = true
+     * @return array [name, table, columns, unique]
+     */
+    protected function createIndexData($table, $columns, $unique = false, $reduceLongName = true)
+    {
+        return [
+            $this->createIndexName($table, $columns, $reduceLongName),
+            $table,
+            $columns,
+            $unique
+        ];
+    }
+
+    /**
      * @param string $name
+     * @param int $maxLength = self::MAX_FK_NAME_LENGTH  Max length in characters.
      * @return string
      */
-    private function clearConstraintName($name)
+    protected function reduceLongConstraintName($name, $maxLength = self::MAX_FK_NAME_LENGTH)
     {
-        return str_replace(["{{%", "}}"], "", $name);
+        $length = strlen($name);
+        if ($length > $maxLength) {
+            $name = substr($name, $length - self::MAX_FK_NAME_LENGTH);
+        }
+
+        return $name;
     }
 }

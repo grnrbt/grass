@@ -7,7 +7,6 @@ use yii\helpers\StringHelper;
 
 class ActiveRecord extends \yii\db\ActiveRecord
 {
-
     /**
      * function similiar to ActiveRecord::tableName(), but returns not prefixed table name,
      * mostly for index name generation

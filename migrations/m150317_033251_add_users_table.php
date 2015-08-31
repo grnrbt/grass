@@ -5,9 +5,12 @@ use \app\models\User;
 
 class m150317_033251_add_users_table extends Migration
 {
-    private $tableNameUnprefixed;
-
-    private $table;
+    private $userTbl;
+    private $emailIndex;
+    private $authKeyIndex;
+    private $resetKeyIndex;
+    private $isActiveIndex;
+    private $idGroupIndex;
 
     public function getType()
     {
@@ -18,13 +21,17 @@ class m150317_033251_add_users_table extends Migration
     {
         parent::init();
 
-        $this->tableNameUnprefixed = User::tableNameUnprefixed();
-        $this->table = User::tableName();
+        $this->userTbl = User::tableName();
+        $this->emailIndex = $this->createIndexData($this->userTbl, 'email', true);
+        $this->authKeyIndex = $this->createIndexData($this->userTbl, 'auth_key', true);
+        $this->resetKeyIndex = $this->createIndexData($this->userTbl, 'reset_key', true);
+        $this->isActiveIndex = $this->createIndexData($this->userTbl, 'is_active');
+        $this->idGroupIndex = $this->createIndexData($this->userTbl, 'id_group');
     }
 
     public function safeUp()
     {
-        $this->createTable($this->table, [
+        $this->createTable($this->userTbl, [
             'id' => 'serial primary key',
             'email' => 'varchar(255) NOT NULL',
             'password' => 'varchar(255) NOT NULL',
@@ -40,21 +47,21 @@ class m150317_033251_add_users_table extends Migration
             'ts_updated' => 'timestamp DEFAULT CURRENT_TIMESTAMP',
         ]);
 
-        $this->createIndex($this->tableNameUnprefixed . '_email', $this->table, 'email', true);
-        $this->createIndex($this->tableNameUnprefixed . '_auth_key', $this->table, 'auth_key', true);
-        $this->createIndex($this->tableNameUnprefixed . '_reset_key', $this->table, 'reset_key', true);
-        $this->createIndex($this->tableNameUnprefixed . '_is_active', $this->table, 'is_active');
-        $this->createIndex($this->tableNameUnprefixed . '_id_group', $this->table, 'id_group');
+        $this->createIndex(...$this->emailIndex);
+        $this->createIndex(...$this->authKeyIndex);
+        $this->createIndex(...$this->resetKeyIndex);
+        $this->createIndex(...$this->isActiveIndex);
+        $this->createIndex(...$this->idGroupIndex);
     }
 
     public function safeDown()
     {
-        $this->dropIndex($this->tableNameUnprefixed . '_email', $this->table);
-        $this->dropIndex($this->tableNameUnprefixed . '_auth_key', $this->table);
-        $this->dropIndex($this->tableNameUnprefixed . '_reset_key', $this->table);
-        $this->dropIndex($this->tableNameUnprefixed . '_is_active', $this->table);
-        $this->dropIndex($this->tableNameUnprefixed . '_id_group', $this->table);
+        $this->dropIndex(...$this->emailIndex);
+        $this->dropIndex(...$this->authKeyIndex);
+        $this->dropIndex(...$this->resetKeyIndex);
+        $this->dropIndex(...$this->isActiveIndex);
+        $this->dropIndex(...$this->idGroupIndex);
 
-        $this->dropTable($this->table);
+        $this->dropTable($this->userTbl);
     }
 }
