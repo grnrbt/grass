@@ -2,19 +2,23 @@
 
 namespace app\components;
 
-use yii\helpers\Inflector;
-use yii\helpers\StringHelper;
-
 class ActiveRecord extends \yii\db\ActiveRecord
 {
     /**
-     * function similiar to ActiveRecord::tableName(), but returns not prefixed table name,
-     * mostly for index name generation
-     * @return string the table name
+     * @param string $value
+     * @return mixed
      */
-    public static function tableNameUnprefixed()
+    protected function decodeJsonValue($value)
     {
-        return Inflector::camel2id(StringHelper::basename(get_called_class()), '_');
+        return json_decode($value, true);
     }
 
+    /**
+     * @param mixed $value
+     * @return string
+     */
+    protected function encodeJsonValue($value)
+    {
+        return json_encode($value);
+    }
 }

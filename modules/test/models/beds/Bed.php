@@ -2,8 +2,6 @@
 
 namespace app\modules\test\models\beds;
 
-use app\models\beds\BedBlockQuery;
-
 class Bed extends \app\models\beds\Bed
 {
     /**

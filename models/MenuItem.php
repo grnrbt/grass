@@ -5,10 +5,6 @@ namespace app\models;
 use app\components\ActiveRecord;
 
 /**
- * Class MenuItem
- *
- * @package app\models
- *
  * @property int $id
  * @property int $id_menu
  * @property string $title
@@ -129,7 +125,7 @@ class MenuItem extends ActiveRecord
      */
     public function getParams()
     {
-        return json_decode($this->params, true);
+        return $this->decodeJsonValue($this->params);
     }
 
     /**
@@ -138,7 +134,7 @@ class MenuItem extends ActiveRecord
      */
     public function setParams($params)
     {
-        $this->params = $params;
+        $this->params = $this->encodeJsonValue($params);
         return $this;
     }
 }

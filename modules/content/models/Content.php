@@ -23,6 +23,24 @@ use yii\behaviors\TimestampBehavior;
  */
 class Content extends ActiveRecord Implements IObject
 {
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::className(),
+                'createdAtAttribute' => 'ts_created',
+                'updatedAtAttribute' => 'ts_updated',
+            ],
+            [
+                'class' => ParamBehavior::className(),
+            ]
+        ];
+    }
+
     /**
      * @return int
      */
@@ -200,22 +218,5 @@ class Content extends ActiveRecord Implements IObject
     public function getBeds()
     {
 
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function behaviors()
-    {
-        return [
-            [
-                'class' => TimestampBehavior::className(),
-                'createdAtAttribute' => 'ts_created',
-                'updatedAtAttribute' => 'ts_updated',
-            ],
-            [
-                'class' => ParamBehavior::className(),
-            ]
-        ];
     }
 }

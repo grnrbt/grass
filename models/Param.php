@@ -33,6 +33,9 @@ class Param extends ActiveRecord
         'multiselect',
     ];
 
+    /**
+     * @inheritdoc
+     */
     public function behaviors()
     {
         return [

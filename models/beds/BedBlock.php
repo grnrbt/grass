@@ -29,9 +29,7 @@ abstract class BedBlock extends ActiveRecord
     public function behaviors()
     {
         return [
-            [
-                'class' => ParamBehavior::className(),
-            ]
+            ['class' => ParamBehavior::className()],
         ];
     }
 
@@ -130,7 +128,7 @@ abstract class BedBlock extends ActiveRecord
      */
     public function getParams()
     {
-        return json_decode($this->params, true);
+        return $this->decodeJsonValue($this->params);
     }
 
     /**
@@ -139,7 +137,7 @@ abstract class BedBlock extends ActiveRecord
      */
     public function setParams($params)
     {
-        $this->params = $params;
+        $this->params = $this->encodeJsonValue($params);
         return $this;
     }
 }

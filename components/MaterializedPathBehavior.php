@@ -10,6 +10,8 @@ use yii\db\ActiveQuery;
  * It uses postgreSQL arrays for path field.
  *
  * @method static ActiveQuery find();
+ * @method static decodeJsonValue(mixed $value);
+ * @method string primaryKey()
  */
 class MaterializedPathBehavior extends Behavior
 {
@@ -162,6 +164,6 @@ class MaterializedPathBehavior extends Behavior
 
     protected function getPath()
     {
-        return str_getcsv(trim($this->{$this->pathField}, '{}'));
+        return explode('.',$this->decodeJsonValue($this->{$this->pathField}));
     }
 }

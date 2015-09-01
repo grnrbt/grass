@@ -9,10 +9,6 @@ use yii\behaviors\TimestampBehavior;
 use yii\web\IdentityInterface;
 
 /**
- * Class User
- *
- * @package app\models
- *
  * @property integer $id
  * @property string $email
  * @property string $password
@@ -71,6 +67,22 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * @inheritdoc
      */
+    public static function findIdentity($id)
+    {
+        return static::findOne(['id' => $id]);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public static function findIdentityByAccessToken($token, $type = null)
+    {
+        throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function behaviors()
     {
         return [
@@ -107,22 +119,6 @@ class User extends ActiveRecord implements IdentityInterface
 
             [['name_first', 'name_last', 'name_middle',], 'string'],
         ];
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public static function findIdentity($id)
-    {
-        return static::findOne(['id' => $id]);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public static function findIdentityByAccessToken($token, $type = null)
-    {
-        throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
     }
 
     /**

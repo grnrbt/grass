@@ -22,33 +22,15 @@ use yii\helpers\ArrayHelper;
  */
 class Config extends ActiveRecord
 {
-    private static $cache;
-
     const CACHE_KEY = 'config';
+
+    private static $cache;
 
     private $types = [
         'string',
         'boolean',
         'integer',
     ];
-
-    public function behaviors()
-    {
-        return [
-            [
-                'class' => TimestampBehavior::className(),
-                'createdAtAttribute' => false, // config params are not created in run-time
-                'updatedAtAttribute' => 'ts_updated',
-            ],
-        ];
-    }
-
-    public function init()
-    {
-        static::loadCache();
-
-        parent::init();
-    }
 
     /**
      * loads model cache
@@ -105,6 +87,32 @@ class Config extends ActiveRecord
         return $config->setValue($value)->save();
     }
 
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::className(),
+                'createdAtAttribute' => false, // config params are not created in run-time
+                'updatedAtAttribute' => 'ts_updated',
+            ],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function init()
+    {
+        static::loadCache();
+        parent::init();
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function rules()
     {
         return [
@@ -118,12 +126,19 @@ class Config extends ActiveRecord
         ];
     }
 
+    /**
+     * @param string $value
+     * @return $this
+     */
     public function setValue($value)
     {
         $this->value = $value;
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getValue()
     {
         return $this->value;

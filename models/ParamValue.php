@@ -17,5 +17,4 @@ use app\components\ActiveRecord;
 class ParamValue extends ActiveRecord
 {
 
-
 }

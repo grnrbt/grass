@@ -39,7 +39,7 @@ class Route extends ActiveRecord
 
     /**
      * @param int $id_action
-     * @return Route
+     * @return $this
      */
     public function setIdAction($id_action)
     {
@@ -57,7 +57,7 @@ class Route extends ActiveRecord
 
     /**
      * @param string $uri
-     * @return Route
+     * @return $this
      */
     public function setUri($uri)
     {
@@ -75,7 +75,7 @@ class Route extends ActiveRecord
 
     /**
      * @param int $id_object
-     * @return Route
+     * @return $this
      */
     public function setIdObject($id_object)
     {
