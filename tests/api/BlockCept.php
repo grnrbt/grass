@@ -2,7 +2,7 @@
 
 $I = new ApiTester($scenario);
 
-$I->wantToTest('Blocks');
+$I->wantToTest("Routing for block's controllers.");
 
 require(__DIR__.'/../../components/BlockControllerTrait.php');
 $urlAnchor=\app\components\BlockControllerTrait::$blockUrlAnchor;
