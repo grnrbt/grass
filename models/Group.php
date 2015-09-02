@@ -5,10 +5,11 @@ namespace app\models;
 
 use app\components\ActiveRecord;
 use app\components\ParamBehavior;
-use yii\behaviors\TimestampBehavior;
+use app\components\TimestampBehavior;
 
 /**
  * Class Group
+ *
  * @package app\models
  *
  * @property integer $id
@@ -23,14 +24,8 @@ class Group extends ActiveRecord
     public function behaviors()
     {
         return [
-            [
-                'class' => TimestampBehavior::className(),
-                'createdAtAttribute' => 'ts_created',
-                'updatedAtAttribute' => 'ts_updated',
-            ],
-            [
-                'class' => ParamBehavior::className(),
-            ]
+            ['class' => TimestampBehavior::class],
+            ['class' => ParamBehavior::className()],
         ];
     }
 
@@ -52,10 +47,10 @@ class Group extends ActiveRecord
     public function beforeDelete()
     {
         if (parent::beforeDelete() && $this->getId() != 1) { // do not delete system admin group
-                return true;
-            } else {
-                return false;
-            }
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**

@@ -5,7 +5,7 @@ namespace app\models;
 use app\components\ActiveRecord;
 use app\components\ParamBehavior;
 use yii\base\NotSupportedException;
-use yii\behaviors\TimestampBehavior;
+use app\components\TimestampBehavior;
 use yii\web\IdentityInterface;
 
 /**
@@ -86,14 +86,8 @@ class User extends ActiveRecord implements IdentityInterface
     public function behaviors()
     {
         return [
-            [
-                'class' => TimestampBehavior::class,
-                'createdAtAttribute' => 'ts_created',
-                'updatedAtAttribute' => 'ts_updated',
-            ],
-            [
-                'class' => ParamBehavior::class,
-            ]
+            ['class' => TimestampBehavior::class],
+            ['class' => ParamBehavior::class],
         ];
     }
 

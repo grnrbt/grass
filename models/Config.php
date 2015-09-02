@@ -3,7 +3,7 @@
 namespace app\models;
 
 use app\components\ActiveRecord;
-use yii\behaviors\TimestampBehavior;
+use app\components\TimestampBehavior;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -94,9 +94,8 @@ class Config extends ActiveRecord
     {
         return [
             [
-                'class' => TimestampBehavior::className(),
+                'class' => TimestampBehavior::class,
                 'createdAtAttribute' => false, // config params are not created in run-time
-                'updatedAtAttribute' => 'ts_updated',
             ],
         ];
     }

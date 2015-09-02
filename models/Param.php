@@ -3,10 +3,11 @@
 namespace app\models;
 
 use app\components\ActiveRecord;
-use yii\behaviors\TimestampBehavior;
+use app\components\TimestampBehavior;
 
 /**
  * Class Param
+ *
  * @package app\models
  *
  * @property int id
@@ -39,11 +40,7 @@ class Param extends ActiveRecord
     public function behaviors()
     {
         return [
-            [
-                'class' => TimestampBehavior::className(),
-                'createdAtAttribute' => 'ts_created',
-                'updatedAtAttribute' => 'ts_updated',
-            ],
+            ['class' => TimestampBehavior::class],
         ];
     }
 }
