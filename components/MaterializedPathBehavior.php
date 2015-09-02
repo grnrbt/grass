@@ -10,7 +10,8 @@ use yii\db\ActiveQuery;
  * It uses postgreSQL arrays for path field.
  *
  * @method static ActiveQuery find();
- * @method static decodeJsonValue(mixed $value);
+ * @method mixed decodeJsonValue(mixed $value);
+ * @method static string tableName();
  * @method string primaryKey()
  */
 class MaterializedPathBehavior extends Behavior
@@ -32,6 +33,8 @@ class MaterializedPathBehavior extends Behavior
     public $pathField = 'path';
     /** @var string */
     public $positionField = 'position';
+    /** @var string */
+    public $levelField = 'level';
 
     /**
      * @inheritdoc
@@ -140,10 +143,24 @@ class MaterializedPathBehavior extends Behavior
      * @param MaterializedPathBehavior $node
      * @param $node
      * @return $this
+     * @see http://www.monkeyandcrow.com/blog/hierarchies_with_postgres/
      */
     public function appendTo($node)
     {
-        // TODO: realize
+        // TODO: update children's path, depth, level attributes after node moving if needed.
+        // TODO: update parent's children attribute after node moving if needed.
+
+        $table = static::tableName();
+        $pathField = $this->pathField;
+        $parentPath = $node->{$pathField};
+        $level = $this->{$this->levelField};
+        $pk = $this->{$this->pathField};
+
+        \Yii::$app->getDb()->createCommand("
+            update {$table}
+            set {$pathField} = array{$parentPath} || {$pathField}[{$level}:array_length({$pathField}, 1)]
+            where {$pathField} && array[{$pk}]
+        ")->execute();
     }
 
     /**
@@ -164,6 +181,6 @@ class MaterializedPathBehavior extends Behavior
 
     protected function getPath()
     {
-        return explode('.',$this->decodeJsonValue($this->{$this->pathField}));
+        return explode('.', $this->decodeJsonValue($this->{$this->pathField}));
     }
 }
