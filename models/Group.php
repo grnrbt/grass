@@ -4,7 +4,7 @@ namespace app\models;
 
 
 use app\components\ActiveRecord;
-use app\components\ParamBehavior;
+use app\components\ParamsBehavior;
 use app\components\TimestampBehavior;
 
 /**
@@ -25,7 +25,7 @@ class Group extends ActiveRecord
     {
         return [
             ['class' => TimestampBehavior::class],
-            ['class' => ParamBehavior::className()],
+            ['class' => ParamsBehavior::class],
         ];
     }
 

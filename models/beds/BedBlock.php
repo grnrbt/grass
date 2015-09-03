@@ -3,7 +3,7 @@
 namespace app\models\beds;
 
 use app\components\ActiveRecord;
-use app\components\ParamBehavior;
+use app\components\ParamsBehavior;
 
 /**
  * @property int $id
@@ -29,7 +29,7 @@ abstract class BedBlock extends ActiveRecord
     public function behaviors()
     {
         return [
-            ['class' => ParamBehavior::className()],
+            ['class' => ParamsBehavior::class],
         ];
     }
 

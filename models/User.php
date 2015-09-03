@@ -3,7 +3,7 @@
 namespace app\models;
 
 use app\components\ActiveRecord;
-use app\components\ParamBehavior;
+use app\components\ParamsBehavior;
 use yii\base\NotSupportedException;
 use app\components\TimestampBehavior;
 use yii\web\IdentityInterface;
@@ -87,7 +87,7 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             ['class' => TimestampBehavior::class],
-            ['class' => ParamBehavior::class],
+            ['class' => ParamsBehavior::class],
         ];
     }
 

@@ -7,12 +7,14 @@ use yii\db\Exception;
 use yii\validators\Validator;
 
 /**
- * Class ParamBehavior
+ * Class ParamsBehavior
+ *
  * @package app\components
  *
  * @property ActiveRecord $owner
+ * @method mixed decodeJsonValue(string $value)
  */
-class ParamBehavior extends Behavior
+class ParamsBehavior extends Behavior
 {
     private $paramsCache;
 
@@ -21,11 +23,11 @@ class ParamBehavior extends Behavior
      */
     private function fillCache()
     {
-        if(!$this->owner->hasAttribute('param')){
+        if (!$this->owner->hasAttribute('params')) {
             throw new Exception('Model should have "param" attribute');
         }
-        $params = $this->owner->getAttribute('param');
-        $this->paramsCache = $params ? json_decode($params) : [];
+        $params = $this->owner->getAttribute('params');
+        $this->paramsCache = $params ? $this->decodeJsonValue($params) : [];
     }
 
     /**
@@ -35,7 +37,7 @@ class ParamBehavior extends Behavior
      */
     public function getParam($name)
     {
-        if(is_null($this->paramsCache)){
+        if (is_null($this->paramsCache)) {
             $this->fillCache();
         }
 
@@ -50,14 +52,14 @@ class ParamBehavior extends Behavior
      */
     public function setParam($name, $value, $saveObject = true)
     {
-        if(is_null($this->paramsCache)){
+        if (is_null($this->paramsCache)) {
             $this->fillCache();
         }
 
         $this->paramsCache[$name] = $value;
         $this->owner->setAttribute('param', json_encode($this->paramsCache));
 
-        if($saveObject){
+        if ($saveObject) {
             $this->owner->save();
         }
     }
@@ -71,7 +73,6 @@ class ParamBehavior extends Behavior
 
     public function beforeValidate($event)
     {
-        $this->owner->validators[] = Validator::createValidator(ParamValidator::className(), $this->owner, 'param', []);
+        $this->owner->validators[] = Validator::createValidator(ParamValidator::class, $this->owner, 'params', []);
     }
-
 }
