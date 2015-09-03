@@ -42,6 +42,7 @@ abstract class Controller extends \yii\web\Controller
         return $this->render($view, $params);
     }
 
+    // TODO: may be "protected" ?
     public function setHeaders()
     {
         $view = $this->view;

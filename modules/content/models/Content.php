@@ -4,11 +4,12 @@ namespace app\modules\content\models;
 
 use app\components\ActiveRecord;
 use app\components\IObject;
-use app\components\ParamBehavior;
-use yii\behaviors\TimestampBehavior;
+use app\components\ParamsBehavior;
+use app\components\TimestampBehavior;
 
 /**
  * Class Content
+ *
  * @package app\modules\content\models
  *
  * @property int $id
@@ -23,6 +24,13 @@ use yii\behaviors\TimestampBehavior;
  */
 class Content extends ActiveRecord Implements IObject
 {
+    /**
+     * @return ContentQuery
+     */
+    public static function find()
+    {
+        return new ContentQuery(static::class);
+    }
 
     /**
      * @inheritdoc
@@ -30,15 +38,35 @@ class Content extends ActiveRecord Implements IObject
     public function behaviors()
     {
         return [
-            [
-                'class' => TimestampBehavior::className(),
-                'createdAtAttribute' => 'ts_created',
-                'updatedAtAttribute' => 'ts_updated',
-            ],
-            [
-                'class' => ParamBehavior::className(),
-            ]
+            ['class' => TimestampBehavior::class],
+            ['class' => ParamsBehavior::class]
         ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['slug', 'menu_title'], 'trim'],
+            [['slug', 'menu_title'], 'string', 'max' => 255],
+            [['position', 'id_parent'], 'number'],
+            [['is_active', 'is_hidden'], 'boolean'],
+            ['id_parent', 'exist', 'targetClass' => static::class, 'targetAttribute' => 'id'],
+            ['ids_bed', 'required'],
+        ];
+    }
+
+    /**
+     * Remove record.
+     *
+     * @return bool
+     */
+    public function remove()
+    {
+        // TODO: added pseudo removing.
+        return $this->delete();
     }
 
     /**
@@ -136,7 +164,7 @@ class Content extends ActiveRecord Implements IObject
      */
     public function getIdsBed()
     {
-        return $this->ids_bed;
+        return $this->decodeJsonValue($this->ids_bed);
     }
 
     /**
@@ -145,7 +173,7 @@ class Content extends ActiveRecord Implements IObject
      */
     public function setIdsBed($ids_bed)
     {
-        $this->ids_bed = $ids_bed;
+        $this->ids_bed = $this->encodeJsonValue($ids_bed);
         return $this;
     }
 
@@ -201,15 +229,6 @@ class Content extends ActiveRecord Implements IObject
     {
         $this->position = $position;
         return $this;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function rules()
-    {
-        return [
-        ];
     }
 
     /**

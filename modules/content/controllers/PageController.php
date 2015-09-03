@@ -6,8 +6,8 @@ use app\components\Controller;
 
 class PageController extends Controller
 {
-public function actionView()
-{
+    public function actionView()
+    {
 
-}
+    }
 }
