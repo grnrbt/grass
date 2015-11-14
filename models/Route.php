@@ -9,18 +9,20 @@ use yii\helpers\ArrayHelper;
  * @property string $uri
  * @property int $id_action
  * @property int $id_object
+ * @property int $id_module
  */
 class Route extends ActiveRecord
 {
     /**
      * get list of all rules for createUrl function
+     *
      * @return array|mixed
      */
     public static function getRules()
     {
         $rules = \Yii::$app->cache->get('rules');
 
-        if(!$rules){
+        if ($rules === false) {
             $rules = ArrayHelper::map(Route::find()->select(['uri', 'id_action'])->asArray()->all(), 'uri', 'id_action');
             \Yii::$app->cache->set('rules', $rules, 60 * 60);
             // todo maybe set dependency on max ts_updated field in DB (need to add that field)
@@ -80,6 +82,24 @@ class Route extends ActiveRecord
     public function setIdObject($id_object)
     {
         $this->id_object = $id_object;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdModule()
+    {
+        return $this->id_object;
+    }
+
+    /**
+     * @param int $id_module
+     * @return $this
+     */
+    public function setIdModule($id_module)
+    {
+        $this->id_module = $id_module;
         return $this;
     }
 }
