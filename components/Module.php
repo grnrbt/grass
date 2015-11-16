@@ -50,7 +50,7 @@ class Module extends \yii\base\Module
     public function getMenuSourceById($id)
     {
         $menus = static::getMenus();
-        if (!isset($menus[$id])) {
+        if (!is_array($menus) || !isset($menus[$id])) {
             return null;
         }
 
