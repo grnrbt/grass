@@ -7,8 +7,7 @@ use yii\helpers\ArrayHelper;
 
 /**
  * @property string $uri
- * @property int $id_action
- * @property int $id_object
+ * @property int $route
  * @property int $id_module
  */
 class Route extends ActiveRecord
@@ -17,6 +16,7 @@ class Route extends ActiveRecord
      * get list of all rules for createUrl function
      *
      * @return array|mixed
+     * @deprecated
      */
     public static function getRules()
     {
@@ -31,23 +31,6 @@ class Route extends ActiveRecord
         return $rules;
     }
 
-    /**
-     * @return int
-     */
-    public function getIdAction()
-    {
-        return $this->id_action;
-    }
-
-    /**
-     * @param int $id_action
-     * @return $this
-     */
-    public function setIdAction($id_action)
-    {
-        $this->id_action = $id_action;
-        return $this;
-    }
 
     /**
      * @return string
@@ -70,27 +53,9 @@ class Route extends ActiveRecord
     /**
      * @return int
      */
-    public function getIdObject()
-    {
-        return $this->id_object;
-    }
-
-    /**
-     * @param int $id_object
-     * @return $this
-     */
-    public function setIdObject($id_object)
-    {
-        $this->id_object = $id_object;
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
     public function getIdModule()
     {
-        return $this->id_object;
+        return $this->id_module;
     }
 
     /**
@@ -100,6 +65,19 @@ class Route extends ActiveRecord
     public function setIdModule($id_module)
     {
         $this->id_module = $id_module;
+        return $this;
+    }
+
+    /** @return int */
+    public function getRoute() { return $this->route; }
+
+    /**
+     * @param int $route
+     * @return Route
+     */
+    public function setRoute($route)
+    {
+        $this->route = $route;
         return $this;
     }
 }
