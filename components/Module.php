@@ -1,6 +1,7 @@
 <?php
 
 namespace app\components;
+use app\components\url\UrlRule;
 
 /**
  * Class Module
@@ -23,13 +24,13 @@ class Module extends \yii\base\Module
      */
     public static function getAdminLinks()
     {
-
+        return [];
     }
 
     /**
      * Returns urlRules for this module.
      *
-     * @return array List of rules for for added to UrlManager
+     * @return UrlRule[] List of rules for for added to UrlManager
      * @see \yii\web\UrlManager::addRules()
      */
     public static function getUrlRules()

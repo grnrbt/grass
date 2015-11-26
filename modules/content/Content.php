@@ -4,7 +4,7 @@ namespace app\modules\content;
 
 use app\components\Module;
 use app\modules\content\components\PageMenu;
-use app\modules\content\components\url\UrlRule;
+use app\modules\content\components\UrlRule;
 
 class Content extends Module
 {

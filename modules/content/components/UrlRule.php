@@ -1,32 +1,22 @@
 <?php
 
-namespace app\modules\content\components\url;
+namespace app\modules\content\components;
 
 use app\modules\content\models\Content;
-use yii\web\Request;
 use yii\web\UrlManager;
 
 class UrlRule extends \app\components\url\UrlRule
 {
-    /**
-     * Parses the given request and returns the corresponding route and parameters.
-     *
-     * @param UrlManager $manager the URL manager
-     * @param Request $request the request component
-     * @return array|boolean the parsing result. The route and the parameters are returned as an array.
-     * If false, it means this rule cannot be used to parse this path info.
-     */
-    public function parseRequest($manager, $request)
+    /** @inheritdoc */
+    protected function generateRouteByPath($path)
     {
-        $path = $request->getPathInfo();
         $record = Content::find()
             ->activeOnly()
             ->visibleOnly()
             ->bySlug($path)
             ->one();
-
         if (!$record) {
-            return false;
+            return null;
         }
         return ['/content/page/view', ['id' => $record->getId()]];
     }

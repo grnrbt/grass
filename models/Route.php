@@ -3,34 +3,45 @@
 namespace app\models;
 
 use app\components\ActiveRecord;
-use yii\helpers\ArrayHelper;
+use app\models\queries\RouteQuery;
 
 /**
  * @property string $uri
- * @property int $route
- * @property int $id_module
+ * @property array $route
+ * @property string $id_module
  */
 class Route extends ActiveRecord
 {
-    /**
-     * get list of all rules for createUrl function
-     *
-     * @return array|mixed
-     * @deprecated
-     */
-    public static function getRules()
+    /** @return RouteQuery */
+    public static function find()
     {
-        $rules = \Yii::$app->cache->get('rules');
-
-        if ($rules === false) {
-            $rules = ArrayHelper::map(Route::find()->select(['uri', 'id_action'])->asArray()->all(), 'uri', 'id_action');
-            \Yii::$app->cache->set('rules', $rules, 60 * 60);
-            // todo maybe set dependency on max ts_updated field in DB (need to add that field)
-        }
-
-        return $rules;
+        return new RouteQuery(static::class);
     }
 
+    /** @inheritdoc */
+    public function beforeSave($insert)
+    {
+        if (!parent::beforeSave($insert)) {
+            return false;
+        }
+
+        $route = $this->route;
+        if ($route && is_array($route) && count($route) == 2) {
+            ksort($route[1]);
+        }
+        $this->route = json_encode($route);
+
+        return true;
+    }
+
+    /** @inheritdoc */
+    public function afterFind()
+    {
+        if ($this->route) {
+            $this->route = json_decode($this->route, true);
+        }
+        parent::afterFind();
+    }
 
     /**
      * @return string
@@ -51,7 +62,7 @@ class Route extends ActiveRecord
     }
 
     /**
-     * @return int
+     * @return string
      */
     public function getIdModule()
     {
@@ -59,7 +70,7 @@ class Route extends ActiveRecord
     }
 
     /**
-     * @param int $id_module
+     * @param string $id_module
      * @return $this
      */
     public function setIdModule($id_module)
@@ -68,11 +79,11 @@ class Route extends ActiveRecord
         return $this;
     }
 
-    /** @return int */
+    /** @return array */
     public function getRoute() { return $this->route; }
 
     /**
-     * @param int $route
+     * @param array $route
      * @return Route
      */
     public function setRoute($route)
