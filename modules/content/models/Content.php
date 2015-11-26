@@ -6,6 +6,7 @@ use app\components\ActiveRecord;
 use app\components\IObject;
 use app\components\ParamsBehavior;
 use app\components\TimestampBehavior;
+use app\modules\content\models\queries\ContentQuery;
 
 /**
  * Class Content

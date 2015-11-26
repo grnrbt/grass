@@ -4,12 +4,17 @@ namespace app\modules\content;
 
 use app\components\Module;
 use app\modules\content\components\PageMenu;
+use app\modules\content\components\url\UrlRule;
 
 class Content extends Module
 {
-    /**
-     * @return array
-     */
+    /** @inheritdoc */
+    public static function getUrlRules()
+    {
+        return [new UrlRule()];
+    }
+
+    /** @inheritdoc */
     public static function getAdminLinks()
     {
         return [
@@ -20,9 +25,7 @@ class Content extends Module
         ];
     }
 
-    /**
-     * @inheritdoc
-     */
+    /** @inheritdoc */
     public static function getMenus()
     {
         return [

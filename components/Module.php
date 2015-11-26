@@ -27,6 +27,17 @@ class Module extends \yii\base\Module
     }
 
     /**
+     * Returns urlRules for this module.
+     *
+     * @return array List of rules for for added to UrlManager
+     * @see \yii\web\UrlManager::addRules()
+     */
+    public static function getUrlRules()
+    {
+        return [];
+    }
+
+    /**
      * Get list of menu generators.
      *
      * @return null|array List of generators. Null if there no menus in this module.
