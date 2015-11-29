@@ -45,7 +45,6 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-//        $model = Content::findOne(0);
         $model = null;
         return $this->renderBeds('index', $model);
     }

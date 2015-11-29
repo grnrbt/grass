@@ -37,7 +37,7 @@ class m151126_132005_change_route_schema extends Migration
 
         $this->db->createCommand("
             update {$this->tbl}
-            set route = concat('[\"', id_action, '\"]'),
+            set route = concat('[\"', id_action, '\",{}]'),
             id_module= 'core'
         ")->execute();
         $this->db->createCommand("
@@ -60,7 +60,7 @@ class m151126_132005_change_route_schema extends Migration
 
         $this->db->createCommand("
             update {$this->tbl}
-            set id_action = btrim(route, '[]\"')
+            set id_action = btrim(route, '[]\"{},')
         ")->execute();
         $this->db->createCommand("
             alter table {$this->tbl} alter id_action set not null
