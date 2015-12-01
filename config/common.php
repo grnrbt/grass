@@ -8,7 +8,7 @@ return [
     'modules' => require(__DIR__ . '/modules.php'),
     'components' => [
         'db' => require(__DIR__ . '/db.php'),
-        'cache' => \yii\caching\FileCache::class,
+        'cache' => \yii\caching\DummyCache::class,
         'eventManager' => \app\components\EventManager::class,
         'i18n' => [
             'translations' => [

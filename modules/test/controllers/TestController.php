@@ -5,10 +5,14 @@ namespace app\modules\test\controllers;
 use app\components\Controller;
 use app\components\IObject;
 use app\modules\test\models\beds\Bed;
-use app\modules\test\models\beds\BedBlock;
 
 class TestController extends Controller
 {
+    public function actionIndex()
+    {
+
+    }
+
     public function actionRenderTestBed($idObject = null)
     {
         $obj = new TestObject(['id' => $idObject]);

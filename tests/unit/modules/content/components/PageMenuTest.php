@@ -4,14 +4,14 @@ namespace app\tests\unit\modules\contents\components;
 
 use app\modules\content\components\PageMenu;
 use app\tests\unit\DbTestCase;
-use app\tests\unit\fixtures\modules\content\components\PageMenuFixture;
+use app\tests\unit\fixtures\modules\content\models\ContentFixture;
 
 class PageMenuTest extends DbTestCase
 {
     public function fixtures()
     {
         return [
-            PageMenuFixture::class,
+            ContentFixture::class,
         ];
     }
 
@@ -20,11 +20,11 @@ class PageMenuTest extends DbTestCase
         $result = PageMenu::generate();
         $pattern = [
             [
-                'url' => '/content/page/view?id=5',
+                'url' => '/item-5',
                 'label' => 'item title 5',
             ],
             [
-                'url' => '/content/page/view?id=1',
+                'url' => '/item-1',
                 'label' => 'item title 1',
             ],
         ];

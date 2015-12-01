@@ -14,34 +14,34 @@ abstract class UrlRule extends Object implements UrlRuleInterface
     public $idModule;
 
     /**
-     * Generates and returns route by path.
+     * Generates and returns route by uri.
      *
-     * @param string $path
-     * @return array|null Route for this path.
+     * @param string $uri
+     * @return array|null Route for this uri.
      */
-    abstract protected function generateRouteByPath($path);
+    abstract protected function generateRouteByUri($uri);
 
     /**
-     * Generates and returns path(uri) by route and params.
+     * Generates and returns uri by route and params.
      *
      * @param string $route
      * @param array $params
      * @return string|boolean the created URL, or false if this rule cannot be used for creating this URL.
      */
-    abstract protected function generatePathByRoute($route, $params);
+    abstract protected function generateUriByRoute($route, $params);
 
     /** @inheritdoc */
     public function parseRequest($manager, $request)
     {
-        $path = $request->getPathInfo();
-        $route = $this->findRouteInCache($path);
+        $uri = $request->getPathInfo();
+        $route = $this->findRouteInCache($uri);
         if ($route) {
             return $route;
         }
-        $route = $this->generateRouteByPath($path);
+        $route = $this->generateRouteByUri($uri);
 
         if ($route) {
-            $this->saveRouteToCache($path, $route);
+            $this->saveRouteToCache($uri, $route);
         }
         return $route ?: false;
     }
@@ -57,29 +57,29 @@ abstract class UrlRule extends Object implements UrlRuleInterface
     public function createUrl($manager, $route, $params)
     {
         // TODO: cache it.
-        return $this->generatePathByRoute($route,$params);
+        return $this->generateUriByRoute($route,$params);
     }
 
     /**
-     * Find route in cache by his path.
+     * Find route in cache by his $uri.
      *
-     * @param string $path
+     * @param string $uri
      * @return array|null
      */
-    protected function findRouteInCache($path)
+    protected function findRouteInCache($uri)
     {
-        $key = $this->generateCacheKeyByPath($path);
+        $key = $this->generateCacheKeyByUri($uri);
         $route = \Yii::$app->getCache()->get($key);
         if ($route) {
             return $route;
         }
 
         $record = Route::find()
-            ->byUri($path)
+            ->byUri($uri)
             ->one();
         if ($record) {
             $route = $record->getRoute();
-            $this->saveRouteToCache($path, $route, true);
+            $this->saveRouteToCache($uri, $route, true);
             return $route;
         }
 
@@ -89,19 +89,19 @@ abstract class UrlRule extends Object implements UrlRuleInterface
     /**
      * Saves route to cache and route table.
      *
-     * @param string $path
+     * @param string $uri
      * @param array $route
      * @param bool $toCacheOnly =false Save route into cache only. DO not save it to route table.
      */
-    protected function saveRouteToCache($path, $route, $toCacheOnly = false)
+    protected function saveRouteToCache($uri, $route, $toCacheOnly = false)
     {
-        $key = $this->generateCacheKeyByPath($path);
+        $key = $this->generateCacheKeyByUri($uri);
         $duration = \Yii::$app->params['routeCacheDuration'];
         \Yii::$app->getCache()->set($key, $route, $duration);
 
         if (!$toCacheOnly) {
             (new Route())
-                ->setUri($path)
+                ->setUri($uri)
                 ->setRoute($route)
                 ->setIdModule($this->idModule)
                 ->save();
@@ -111,11 +111,11 @@ abstract class UrlRule extends Object implements UrlRuleInterface
     /**
      * Generates kay for saving route data in cache.
      *
-     * @param string $path
+     * @param string $uri
      * @return string
      */
-    protected function generateCacheKeyByPath($path)
+    protected function generateCacheKeyByUri($uri)
     {
-        return "route.{$path}";
+        return "route.{$uri}";
     }
 }
