@@ -6,7 +6,7 @@ use app\modules\content\models\Content;
 
 class UrlRule extends \app\components\url\UrlRule
 {
-    private $viewActionId = "content/page/view";
+    private $viewActionId = "/content/page/view";
 
     /** @inheritdoc */
     protected function generateRouteByPath($path)

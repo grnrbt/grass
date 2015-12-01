@@ -33,7 +33,7 @@ class ContentQuery extends ActiveQuery
      */
     public function activeOnly()
     {
-        return $this->andWhere(['is_active' => 1]);
+        return $this->andWhere(['is_active' => true]);
     }
 
     /**
@@ -41,6 +41,6 @@ class ContentQuery extends ActiveQuery
      */
     public function visibleOnly()
     {
-        return $this->andWhere(['is_hidden' => 0]);
+        return $this->andWhere(['is_hidden' => false]);
     }
 }
