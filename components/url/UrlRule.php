@@ -21,6 +21,15 @@ abstract class UrlRule extends Object implements UrlRuleInterface
      */
     abstract protected function generateRouteByPath($path);
 
+    /**
+     * Generates and returns path(uri) by route and params.
+     *
+     * @param string $route
+     * @param array $params
+     * @return string|boolean the created URL, or false if this rule cannot be used for creating this URL.
+     */
+    abstract protected function generatePathByRoute($route, $params);
+
     /** @inheritdoc */
     public function parseRequest($manager, $request)
     {
@@ -34,7 +43,21 @@ abstract class UrlRule extends Object implements UrlRuleInterface
         if ($route) {
             $this->saveRouteToCache($path, $route);
         }
-        return $route;
+        return $route ?: false;
+    }
+
+    /**
+     * Creates a URL according to the given route and parameters.
+     *
+     * @param UrlManager $manager the URL manager
+     * @param string $route the route. It should not have slashes at the beginning or the end.
+     * @param array $params the parameters
+     * @return string|boolean the created URL, or false if this rule cannot be used for creating this URL.
+     */
+    public function createUrl($manager, $route, $params)
+    {
+        // TODO: cache it.
+        return $this->generatePathByRoute($route,$params);
     }
 
     /**
