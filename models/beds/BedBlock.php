@@ -6,6 +6,8 @@ use app\components\ActiveRecord;
 use app\components\ParamsBehavior;
 
 /**
+ * Base class for all bedBlocks.
+ *
  * @property int $id
  * @property int $id_bed
  * @property int $position

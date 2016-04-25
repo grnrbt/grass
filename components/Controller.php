@@ -25,16 +25,16 @@ abstract class Controller extends \yii\web\Controller
     public function renderBeds($view, IObject $object = null, array $params = [])
     {
         if ($object) {
-            if (isset($params[self::BEDS_PARAMS_INDEX])) {
+            if (isset($params[static::BEDS_PARAMS_INDEX])) {
                 throw new InvalidParamException(\Yii::t(
                     'errors',
                     'Index "{0}" is already exist in $params argument',
-                    self::BEDS_PARAMS_INDEX
+                    static::BEDS_PARAMS_INDEX
                 ));
             }
 
             foreach ($object->getBeds() as $name => $bed) {
-                $params[self::BEDS_PARAMS_INDEX][$name] = new BedRenderer($bed, $object);
+                $params[static::BEDS_PARAMS_INDEX][$name] = new BedRenderer($bed, $object);
             }
         }
 

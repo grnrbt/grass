@@ -5,6 +5,8 @@ namespace app\models\beds;
 use app\components\ActiveRecord;
 
 /**
+ * Base class for all beds.
+ *
  * @property int $id
  * @property int $id_proto
  * @property bool $is_default

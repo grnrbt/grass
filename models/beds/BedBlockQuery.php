@@ -7,13 +7,13 @@ use yii\db\ActiveQuery;
 class BedBlockQuery extends ActiveQuery
 {
     /**
-     * Return only blocks with $is_active == true.
+     * Filter by `is_active` field.
      *
+     * @param bool $active = true
      * @return $this
      */
-    public function activeOnly()
+    public function active($active = true)
     {
-        return $this->andWhere(['is_active' => true]);
+        return $this->andWhere(['is_active' => $active]);
     }
-
 }
