@@ -4,6 +4,10 @@ namespace app\models\beds;
 
 use yii\db\ActiveQuery;
 
+/**
+ * @method BedBlock one($db = null)
+ * @method BedBlock[] all($db = null)
+ */
 class BedBlockQuery extends ActiveQuery
 {
     /**

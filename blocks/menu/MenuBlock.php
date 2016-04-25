@@ -5,14 +5,21 @@ namespace app\blocks\menu;
 use app\blocks\Block;
 use app\models\MenuItem;
 
+/**
+ * Menu block.
+ * Generate menu.
+ * params:
+ * - id_menu int Unique id of menu.
+ * - source callable Method that generate menu items.
+ */
 class MenuBlock extends Block
 {
+    /** @var int */
     protected $idMenu;
+    /** @var callable */
     protected $source;
 
-    /**
-     * @inheritdoc
-     */
+    /** @inheritdoc */
     public function init()
     {
         parent::init();
@@ -20,9 +27,7 @@ class MenuBlock extends Block
         $this->source = $this->params['source'];
     }
 
-    /**
-     * @inheritdoc
-     */
+    /** @inheritdoc */
     public function run()
     {
         /** @var MenuItem[] $menuItems */

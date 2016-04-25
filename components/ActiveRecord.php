@@ -2,7 +2,7 @@
 
 namespace app\components;
 
-class ActiveRecord extends \yii\db\ActiveRecord
+abstract class ActiveRecord extends \yii\db\ActiveRecord
 {
     /**
      * @param string $value

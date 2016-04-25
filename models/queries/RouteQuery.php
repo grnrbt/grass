@@ -7,6 +7,7 @@ use yii\db\ActiveQuery;
 
 /**
  * @method Route one($db = null)
+ * @method Route[] all($db = null)
  */
 class RouteQuery extends ActiveQuery
 {

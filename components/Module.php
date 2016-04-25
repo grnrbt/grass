@@ -4,9 +4,7 @@ namespace app\components;
 use app\components\url\UrlRule;
 
 /**
- * Class Module
- *
- * @package app\components
+ * Base class of all modules.
  */
 class Module extends \yii\base\Module
 {
@@ -18,7 +16,7 @@ class Module extends \yii\base\Module
     public $isActive = false;
 
     /**
-     * get links for admin frontend interfaces
+     * Get links for admin frontend interfaces
      *
      * @return array
      */
@@ -28,7 +26,7 @@ class Module extends \yii\base\Module
     }
 
     /**
-     * Returns urlRules for this module.
+     * Return urlRules for this module.
      *
      * @return UrlRule[] List of rules for for added to UrlManager
      * @see \yii\web\UrlManager::addRules()
@@ -68,5 +66,4 @@ class Module extends \yii\base\Module
 
         return $menus[$id]['source'];
     }
-
 }
